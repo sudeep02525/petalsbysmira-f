@@ -4,12 +4,16 @@
   --color-primary-dark: #000000;
   --color-primary-light: #111111;
   --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+  --color-gold-dark: #AA8022;
+  --color-black: #050505;
+  --color-gray-dark: #121212;
+  --color-gray: #333333;
   --color-cream: #f5f0e6;
   --color-offwhite: #fcfaf7;
-  --color-black: #000000;
   
-  --color-background: var(--color-offwhite);
-  --color-foreground: var(--color-primary-dark);
+  --color-background: var(--color-black);
+  --color-foreground: var(--color-offwhite);
 
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-poppins);
@@ -28,6 +32,16 @@ body {
   100% {
     background-position: 1000px 0;
   }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .animate-shimmer {

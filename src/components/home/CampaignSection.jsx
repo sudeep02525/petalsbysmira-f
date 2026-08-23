@@ -26,7 +26,7 @@ export default function CampaignSection() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
-              <Skeleton key={i} className="aspect-[4/3] rounded-xl" />
+              <Skeleton key={i} className="aspect-[4/3]" />
             ))}
           </div>
         </div>
@@ -46,9 +46,8 @@ export default function CampaignSection() {
   const getGridCols = (count) => {
     if (count === 1) return "grid-cols-1 md:w-3/4 mx-auto";
     if (count === 2) return "grid-cols-1 sm:grid-cols-2 max-w-4xl mx-auto";
-    if (count === 3) return "grid-cols-1 sm:grid-cols-3";
-    if (count % 4 === 0 || count > 6) return "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4";
-    return "grid-cols-2 md:grid-cols-3";
+    if (count === 3) return "grid-cols-1 sm:grid-cols-3 max-w-5xl mx-auto";
+    return "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4";
   };
 
   return (
@@ -77,17 +76,28 @@ export default function CampaignSection() {
         <div className={`grid gap-4 sm:gap-6 ${getGridCols(campaign.images.length)}`}>
           {campaign.images.map((img, idx) => {
             const imageContent = (
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden group shadow-sm">
-                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500 z-10"></div>
-                <img 
-                  src={img.url} 
-                  alt={img.alt || campaign.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
-                  loading={idx > 3 ? "lazy" : "eager"}
-                />
-                {img.title && (
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent z-20">
-                    <p className="text-white font-medium">{img.title}</p>
+              <div className="group flex flex-col h-full">
+                <div className="relative aspect-[4/3] overflow-hidden shadow-sm">
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500 z-10"></div>
+                  <img 
+                    src={img.url} 
+                    alt={img.alt || campaign.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                    loading={idx > 3 ? "lazy" : "eager"}
+                  />
+                </div>
+                {(img.title || img.price) && (
+                  <div className="mt-4 text-center px-2 pb-2">
+                    {img.title && (
+                      <h3 className="text-gray-900 font-medium text-sm md:text-base capitalize tracking-wide transition-colors group-hover:text-[var(--color-gold)] truncate">
+                        {img.title}
+                      </h3>
+                    )}
+                    {img.price && (
+                      <p className="text-gray-600 font-semibold mt-1.5 text-sm md:text-base">
+                        ₹{img.price.toLocaleString('en-IN')}
+                      </p>
+                    )}
                   </div>
                 )}
               </div>

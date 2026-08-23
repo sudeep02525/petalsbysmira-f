@@ -1,181 +1,133 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ShoppingBag } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "../../services/axiosInstance";
-import PriceDisplay from "../ui/PriceDisplay";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Playfair_Display, Great_Vibes } from "next/font/google";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.1 }
-  }
-};
+const playfair = Playfair_Display({ subsets: ['latin'], weight: ['400', '500', '600'] });
+const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400' });
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-const productContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.3, delayChildren: 0.5 }
-  }
-};
-
-const productItemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } }
-};
-
 export default function HeroSection() {
-  const { data: featuredProducts } = useQuery({
-    queryKey: ["hero-products"],
-    queryFn: async () => {
-      const res = await axiosInstance.get("/products", { params: { featured: true } });
-      return res.data?.products?.slice(0, 2) || [];
-    },
-  });
-
   return (
-    <section className="relative w-full min-h-screen bg-[#f0e9df] flex items-center overflow-hidden">
-      {/* Background with light luxury overlay */}
+    <section className="relative w-full h-[100dvh] md:h-screen md:min-h-[700px] md:max-h-[1000px] bg-black flex items-center overflow-hidden border-b border-[#222]">
+      {/* Background Image */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-30 mix-blend-multiply"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2000&auto=format&fit=crop')",
-        }}
+        className="absolute -inset-2 z-0 bg-cover bg-no-repeat bg-[position:45%_center] md:bg-[position:right_center]"
+        style={{ backgroundImage: "url('/image.png')" }}
       ></div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#f0e9df] via-[#f0e9df]/80 to-transparent"></div>
+      
+      {/* Dark Gradient overlays for seamless blending */}
+      {/* Mobile Base Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent md:hidden z-0"></div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-8 w-full pt-28 md:pt-32 pb-10 md:pb-0">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
+      {/* Desktop Gradients */}
+      {/* Left heavy gradient for text */}
+      <div className="hidden md:block absolute inset-y-0 left-0 w-[65%] bg-gradient-to-r from-black via-black/85 to-transparent z-0"></div>
+      
+      {/* Right edge fading */}
+      <div className="hidden md:block absolute inset-y-0 right-0 w-[35%] bg-gradient-to-l from-black via-black/60 to-transparent z-0"></div>
+
+      {/* Top and Bottom edge fading (all devices) */}
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black via-black/50 to-transparent z-0 pointer-events-none"></div>
+      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black via-black/90 to-transparent z-0 pointer-events-none"></div>
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-12 w-full h-full flex flex-col justify-end pb-12 md:pb-0 md:justify-center pt-24 md:pt-16 lg:pt-20">
+        
+        {/* Main Content Container */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full relative h-auto md:h-full">
           
-          {/* Left Text Content */}
-          <motion.div 
-            className="w-full lg:w-1/2 text-left mt-4 md:mt-0"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <h1 className="flex flex-col text-[var(--color-primary-dark)] font-serif leading-tight">
-              <motion.span variants={itemVariants} className="text-[10px] md:text-base uppercase tracking-[0.3em] text-[var(--color-gold)] mb-3 md:mb-4 block font-bold">
-                The Luxury Collection
-              </motion.span>
-              <motion.span variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl font-light mb-1 md:mb-2">
-                Elevate Your
-              </motion.span>
-              <motion.span variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl italic text-[var(--color-gold)] font-medium leading-[1.1] mb-5 md:mb-6 drop-shadow-sm">
-                Gifting Experience
-              </motion.span>
-            </h1>
-            <motion.p variants={itemVariants} className="text-sm md:text-lg text-gray-700 font-medium mb-8 md:mb-10 max-w-md leading-relaxed pr-4 md:pr-0">
-              Discover our curated selection of premium hampers, exquisite jewelry, and timeless accessories designed for those who appreciate the finer things.
-            </motion.p>
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-5">
-              <Link 
-                href="/shop" 
-                className="inline-flex items-center justify-center bg-black text-[var(--color-gold)] px-8 md:px-10 py-3.5 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] hover:bg-[var(--color-gold)] hover:text-black transition-colors w-full sm:w-auto"
-              >
-                Shop Collection
-              </Link>
-              <Link 
-                href="/shop?occasion=wedding" 
-                className="inline-flex items-center justify-center bg-transparent border border-black text-black px-8 md:px-10 py-3.5 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-colors w-full sm:w-auto"
-              >
-                Wedding Gifts
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Aesthetic Image Composition (Desktop) */}
-          <motion.div 
-            className="hidden lg:flex w-full lg:w-1/2 relative h-[400px] md:h-[500px] mt-10 lg:mt-0 justify-center items-center"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            {/* Background Accent Element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-[var(--color-gold)] opacity-10 rounded-full blur-3xl"></div>
-            
-            {/* Primary Image - Gift Hamper */}
-            <motion.div 
-              className="absolute z-10 w-[60%] md:w-[280px] aspect-[4/5] right-[5%] md:right-[10%] top-[10%] md:top-[5%] shadow-2xl rounded-sm overflow-hidden border-2 border-white/50"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
+          {/* Left: Heading and CTA */}
+          <div className="w-full lg:w-[55%] text-left">
+            <motion.h1 
+              className={`flex flex-col text-[var(--color-offwhite)] leading-[1.1] mb-6 ${playfair.className}`}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: { transition: { staggerChildren: 0.2 } }
+              }}
             >
-              <img 
-                src="/images/hero_hamper.jpg" 
-                alt="Luxury Gift Hamper" 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
-              />
-            </motion.div>
+              <motion.span variants={itemVariants} className="text-3xl sm:text-5xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-1">
+                Not everything
+              </motion.span>
+              <motion.span variants={itemVariants} className="text-3xl sm:text-5xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-2">
+                extraordinary comes
+              </motion.span>
+              <motion.span variants={itemVariants} className={`text-5xl sm:text-7xl md:text-[85px] lg:text-[100px] text-[var(--color-gold)] font-medium mt-1 tracking-normal ${greatVibes.className}`}>
+                with a price tag.
+              </motion.span>
+            </motion.h1>
 
-            {/* Secondary Image - Kundan Jewelry */}
+            {/* Lotus Divider Design */}
             <motion.div 
-              className="absolute z-20 w-[50%] md:w-[240px] aspect-square left-[10%] md:left-[15%] bottom-[5%] md:bottom-[10%] shadow-2xl rounded-full overflow-hidden border-4 border-white"
-              initial={{ y: -30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.6 }}
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+              className="flex items-center w-full md:w-[70%] mb-8"
             >
-              <img 
-                src="/images/hero_jewelry.jpg" 
-                alt="Elegant Kundan Jewelry" 
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-in-out"
-              />
+              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-[var(--color-gold)] opacity-50"></div>
+              <div className="px-4 text-[var(--color-gold)] opacity-80">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22c-4-4-6-8-6-12a6 6 0 0 1 12 0c0 4-2 8-6 12z" />
+                  <path d="M12 22c-8-4-10-10-10-14a4 4 0 0 1 8 0" />
+                  <path d="M12 22c8-4 10-10 10-14a4 4 0 0 0-8 0" />
+                </svg>
+              </div>
+              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-[var(--color-gold)] opacity-50"></div>
             </motion.div>
 
-            {/* Decorative Floating Text Badge */}
             <motion.div 
-              className="absolute z-30 right-[15%] bottom-[20%] bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-bold uppercase tracking-widest text-[var(--color-primary-dark)] shadow-xl"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0, duration: 1 }}
+              className="mt-4 flex flex-col items-start md:block w-full"
             >
-              Premium Quality
+              <div className={`mb-8 md:mb-10 text-[#A69B82] opacity-90 tracking-wider space-y-2 md:space-y-3 ${playfair.className} text-center md:text-left w-full md:w-auto`}>
+                <p className="text-sm md:text-[17px]">
+                  Exceptional pieces. Reserved for those who know.
+                </p>
+                <p className="text-sm md:text-[17px]">
+                  Access is limited.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto justify-center md:justify-start">
+                <Link 
+                  href="/editions" 
+                  className="flex items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-4 md:py-3 text-[11px] md:text-[10px] font-medium tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-all duration-300 w-full sm:w-auto"
+                >
+                  EXPLORE THE EDITIONS <span className="ml-3 opacity-70">&gt;</span>
+                </Link>
+                <Link 
+                  href="/request-access" 
+                  className="flex items-center justify-center border border-[var(--color-gold)]/50 text-[var(--color-gold)] px-8 py-4 md:py-3 text-[11px] md:text-[10px] font-medium tracking-[0.25em] hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300 w-full sm:w-auto"
+                >
+                  REQUEST ACCESS
+                </Link>
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Right Aesthetic Image Composition (Mobile Exclusive) */}
+          {/* Right: Floating Quote */}
           <motion.div 
-            className="lg:hidden w-full mt-12 mb-8 flex flex-col gap-4 relative"
-            initial={{ opacity: 0, y: 30 }}
+            className="hidden lg:block absolute right-[4%] top-[38%] max-w-[280px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ delay: 1.2, duration: 1 }}
           >
-            {/* Main Mobile Image */}
-            <div className="w-full aspect-[4/3] rounded-lg overflow-hidden shadow-xl border border-white/50 relative">
-              <img 
-                src="/images/hero_hamper.jpg" 
-                alt="Luxury Gift Hamper" 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              
-              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-primary-dark)] shadow-lg rounded-sm">
-                Premium Hampers
-              </div>
-            </div>
-
-            {/* Secondary Mobile Image */}
-            <div className="w-full aspect-[21/9] rounded-lg overflow-hidden shadow-xl border border-white/50 relative mt-2">
-              <img 
-                src="/images/hero_jewelry.jpg" 
-                alt="Elegant Kundan Jewelry" 
-                className="w-full h-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              
-              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-primary-dark)] shadow-lg rounded-sm">
-                Luxury Jewelry
-              </div>
+            <div className="relative text-right pr-4">
+              {/* Left Quote Icon */}
+              <span className={`absolute -top-4 -left-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 ${playfair.className}`}>“</span>
+              <p className={`text-[26px] italic text-[var(--color-offwhite)] opacity-100 leading-[1.3] ${playfair.className} font-medium`}>
+                A statement,<br/>not just a jewel.
+              </p>
+              {/* Right Quote Icon */}
+              <span className={`absolute -bottom-6 -right-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 ${playfair.className}`}>”</span>
             </div>
           </motion.div>
 
