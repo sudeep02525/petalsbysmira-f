@@ -2,11 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Playfair_Display } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-
-const playfair = Playfair_Display({ subsets: ["latin"] });
 
 function RequestAccessForm() {
   const searchParams = useSearchParams();
@@ -80,7 +77,7 @@ function RequestAccessForm() {
   if (status === "success") {
     return (
       <div className="flex-1 flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-6 ${playfair.className}`}>REQUEST RECEIVED</h1>
+        <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-6 font-serif`}>REQUEST RECEIVED</h1>
         <p className="text-[var(--color-offwhite)] max-w-md mx-auto leading-relaxed text-sm tracking-wide">
           Thank you. Our private access team will contact you shortly to arrange your consultation.
         </p>
@@ -91,7 +88,7 @@ function RequestAccessForm() {
   return (
     <div className="flex-1 max-w-4xl mx-auto w-full px-5 py-24 md:py-32">
       <div className="text-center mb-12">
-        <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-4 ${playfair.className}`}>PRIVATE ACCESS</h1>
+        <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-4 font-serif`}>PRIVATE ACCESS</h1>
         <p className="text-[#A69B82] text-sm tracking-widest uppercase">Request a private consultation</p>
       </div>
 
@@ -110,7 +107,7 @@ function RequestAccessForm() {
                 />
               </div>
               <div>
-                <h3 className={`text-[var(--color-offwhite)] text-lg ${playfair.className}`}>{productData.name}</h3>
+                <h3 className={`text-[var(--color-offwhite)] text-lg font-serif`}>{productData.name}</h3>
                 {productData.limitedEdition && (
                   <span className="inline-block mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--color-gold)] border border-[var(--color-gold)]/50 px-2 py-1">
                     Limited Edition

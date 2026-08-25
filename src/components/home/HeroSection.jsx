@@ -3,11 +3,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Playfair_Display, Great_Vibes } from "next/font/google";
-
-const playfair = Playfair_Display({ subsets: ['latin'], weight: ['400', '500', '600'] });
-const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400' });
-
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -45,7 +40,7 @@ export default function HeroSection() {
           {/* Left: Heading and CTA */}
           <div className="w-full lg:w-[55%] text-left">
             <motion.h1 
-              className={`flex flex-col text-[var(--color-offwhite)] leading-[1.1] mb-6 ${playfair.className}`}
+              className={`flex flex-col text-[var(--color-offwhite)] leading-[1.1] mb-6 font-serif`}
               initial="hidden"
               animate="visible"
               variants={{
@@ -58,7 +53,7 @@ export default function HeroSection() {
               <motion.span variants={itemVariants} className="text-3xl sm:text-5xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-2">
                 extraordinary comes
               </motion.span>
-              <motion.span variants={itemVariants} className={`text-5xl sm:text-7xl md:text-[85px] lg:text-[100px] text-[var(--color-gold)] font-medium mt-1 tracking-normal ${greatVibes.className}`}>
+              <motion.span variants={itemVariants} className={`text-5xl sm:text-7xl md:text-[85px] lg:text-[100px] text-[var(--color-gold)] font-medium mt-1 tracking-normal font-great-vibes`}>
                 with a price tag.
               </motion.span>
             </motion.h1>
@@ -87,9 +82,9 @@ export default function HeroSection() {
               transition={{ delay: 1.0, duration: 1 }}
               className="mt-4 flex flex-col items-start md:block w-full"
             >
-              <div className={`mb-8 md:mb-10 text-[#A69B82] opacity-90 tracking-wider space-y-2 md:space-y-3 ${playfair.className} text-center md:text-left w-full md:w-auto`}>
+              <div className={`mb-8 md:mb-10 text-[#A69B82] opacity-90 tracking-wider space-y-2 md:space-y-3 font-serif text-center md:text-left w-full md:w-auto`}>
                 <p className="text-sm md:text-[17px]">
-                  Exceptional pieces. Reserved for those who know.
+                  Luxury Editions from ₹4,999 to ₹1,00,000
                 </p>
                 <p className="text-sm md:text-[17px]">
                   Access is limited.
@@ -122,12 +117,12 @@ export default function HeroSection() {
           >
             <div className="relative text-right pr-4">
               {/* Left Quote Icon */}
-              <span className={`absolute -top-4 -left-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 ${playfair.className}`}>“</span>
-              <p className={`text-[26px] italic text-[var(--color-offwhite)] opacity-100 leading-[1.3] ${playfair.className} font-medium`}>
+              <span className={`absolute -top-4 -left-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 font-serif`}>“</span>
+              <p className={`text-[26px] italic text-[var(--color-offwhite)] opacity-100 leading-[1.3] font-serif font-medium`}>
                 A statement,<br/>not just a jewel.
               </p>
               {/* Right Quote Icon */}
-              <span className={`absolute -bottom-6 -right-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 ${playfair.className}`}>”</span>
+              <span className={`absolute -bottom-6 -right-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 font-serif`}>”</span>
             </div>
           </motion.div>
 

@@ -2,6 +2,11 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  experimental: {
+    turbopack: {
+      root: 'C:/Petals-by-smira',
+    },
+  },
 };
 
 export default nextConfig;

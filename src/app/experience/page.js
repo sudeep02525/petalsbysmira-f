@@ -1,8 +1,5 @@
-import { Playfair_Display } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-
-const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Experience | Petals by Smira",
@@ -12,12 +9,12 @@ export const metadata = {
 const ExperienceStep = ({ number, title, description, isLast }) => (
   <div className="flex flex-col md:flex-row gap-6 md:gap-12 py-12 md:py-20 border-b border-[#222]">
     <div className="md:w-1/4">
-      <span className={`text-4xl md:text-6xl text-[var(--color-gold)] opacity-40 ${playfair.className}`}>
+      <span className={`text-4xl md:text-6xl text-[var(--color-gold)] opacity-40 font-serif`}>
         {number}
       </span>
     </div>
     <div className="md:w-3/4 flex flex-col justify-center">
-      <h3 className={`text-2xl md:text-4xl text-[var(--color-offwhite)] mb-4 ${playfair.className}`}>
+      <h3 className={`text-2xl md:text-4xl text-[var(--color-offwhite)] mb-4 font-serif`}>
         {title}
       </h3>
       <p className="text-[#ccc] text-sm md:text-base leading-relaxed font-light max-w-2xl">
@@ -36,7 +33,7 @@ export default function ExperiencePage() {
         <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-12">
           
           <div className="text-center mb-24">
-            <h1 className={`text-4xl md:text-6xl text-[var(--color-gold)] mb-6 ${playfair.className} tracking-wide`}>
+            <h1 className={`text-4xl md:text-6xl text-[var(--color-gold)] mb-6 font-serif tracking-wide`}>
               The Petals Experience
             </h1>
             <p className="text-[#A69B82] uppercase tracking-[0.3em] text-xs md:text-sm">

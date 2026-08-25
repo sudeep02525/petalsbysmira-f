@@ -2,12 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { Playfair_Display } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import axiosInstance from "../../../services/axiosInstance";
-
-const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -92,7 +89,7 @@ export default function ProductDetailPage() {
               </span>
             </div>
             
-            <h1 className={`text-3xl md:text-5xl text-[var(--color-offwhite)] mb-4 leading-tight ${playfair.className}`}>
+            <h1 className={`text-3xl md:text-5xl text-[var(--color-offwhite)] mb-4 leading-tight font-serif`}>
               {product.name}
             </h1>
             

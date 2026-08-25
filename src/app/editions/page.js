@@ -2,14 +2,14 @@
 
 import { Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Playfair_Display } from "next/font/google";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CategorySkeleton from "@/components/ui/skeleton/CategorySkeleton";
+import Link from "next/link";
+import ProductGridSkeleton from "../../components/ui/skeleton/ProductGridSkeleton";
 import axiosInstance from "../../services/axiosInstance";
 import ProductCard from "../../components/ui/ProductCard";
-import ProductGridSkeleton from "../../components/ui/skeleton/ProductGridSkeleton";
-
-const playfair = Playfair_Display({ subsets: ["latin"] });
 
 function EditionsContent() {
   // Fetch all categories
@@ -57,7 +57,7 @@ function EditionsContent() {
         
         {/* Header */}
         <div className="text-center mb-24 border-b border-[#222] pb-16">
-          <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-4 tracking-widest uppercase ${playfair.className}`}>
+          <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-4 tracking-widest uppercase font-serif`}>
             The Editions
           </h1>
           <p className="text-[#A69B82] text-xs md:text-sm tracking-[0.3em] uppercase italic font-serif">

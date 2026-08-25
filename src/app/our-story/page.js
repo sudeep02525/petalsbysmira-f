@@ -1,8 +1,5 @@
-import { Playfair_Display } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-
-const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Our Story | Petals by Smira",
@@ -20,7 +17,7 @@ export default function OurStoryPage() {
           <div className="absolute inset-0 bg-[url('/about-hero.jpg')] bg-cover bg-center opacity-40"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
           <div className="relative z-10 text-center px-4">
-            <h1 className={`text-4xl md:text-7xl text-[var(--color-gold)] mb-6 ${playfair.className} tracking-wide`}>
+            <h1 className={`text-4xl md:text-7xl text-[var(--color-gold)] mb-6 font-serif tracking-wide`}>
               The Story
             </h1>
             <p className="text-[#A69B82] uppercase tracking-[0.3em] text-xs md:text-sm">A Legacy of Exclusivity</p>
@@ -34,7 +31,7 @@ export default function OurStoryPage() {
           <section className="flex flex-col md:flex-row gap-12 md:gap-24 items-center">
             <div className="w-full md:w-1/2">
               <h2 className="text-[var(--color-gold)] uppercase tracking-[0.2em] text-xs mb-4">01 — The Beginning</h2>
-              <h3 className={`text-3xl md:text-4xl text-[var(--color-offwhite)] mb-6 ${playfair.className} leading-tight`}>
+              <h3 className={`text-3xl md:text-4xl text-[var(--color-offwhite)] mb-6 font-serif leading-tight`}>
                 Born from a desire for the extraordinary.
               </h3>
               <p className="text-[#ccc] text-sm md:text-base leading-relaxed font-light">
@@ -50,7 +47,7 @@ export default function OurStoryPage() {
           <section className="flex flex-col md:flex-row-reverse gap-12 md:gap-24 items-center">
             <div className="w-full md:w-1/2">
               <h2 className="text-[var(--color-gold)] uppercase tracking-[0.2em] text-xs mb-4">02 — Our Philosophy</h2>
-              <h3 className={`text-3xl md:text-4xl text-[var(--color-offwhite)] mb-6 ${playfair.className} leading-tight`}>
+              <h3 className={`text-3xl md:text-4xl text-[var(--color-offwhite)] mb-6 font-serif leading-tight`}>
                 Luxury is an experience, not just a transaction.
               </h3>
               <p className="text-[#ccc] text-sm md:text-base leading-relaxed font-light">
@@ -66,7 +63,7 @@ export default function OurStoryPage() {
           <section className="flex flex-col md:flex-row gap-12 md:gap-24 items-center">
             <div className="w-full md:w-1/2">
               <h2 className="text-[var(--color-gold)] uppercase tracking-[0.2em] text-xs mb-4">03 — Craftsmanship</h2>
-              <h3 className={`text-3xl md:text-4xl text-[var(--color-offwhite)] mb-6 ${playfair.className} leading-tight`}>
+              <h3 className={`text-3xl md:text-4xl text-[var(--color-offwhite)] mb-6 font-serif leading-tight`}>
                 Attention to detail in every facet.
               </h3>
               <p className="text-[#ccc] text-sm md:text-base leading-relaxed font-light">
@@ -81,7 +78,7 @@ export default function OurStoryPage() {
           {/* Our Promise */}
           <section className="text-center max-w-2xl mx-auto py-24 border-t border-b border-[#222]">
             <h2 className="text-[var(--color-gold)] uppercase tracking-[0.2em] text-xs mb-8">Our Promise</h2>
-            <h3 className={`text-3xl md:text-5xl text-[var(--color-offwhite)] mb-8 ${playfair.className} leading-tight`}>
+            <h3 className={`text-3xl md:text-5xl text-[var(--color-offwhite)] mb-8 font-serif leading-tight`}>
               A personal and private experience, exclusively for you.
             </h3>
             <a 
