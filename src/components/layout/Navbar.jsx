@@ -66,13 +66,13 @@ export default function Navbar() {
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center justify-center">
-            <Link href="/" className="flex flex-col items-start justify-center gap-1 group">
-              <span className={`font-serif tracking-widest text-2xl text-[var(--color-gold)] transition-all duration-500 group-hover:text-[var(--color-gold-light)] uppercase`}>
-                Petals
-              </span>
-              <span className={`font-sans tracking-[0.2em] text-[10px] text-[var(--color-offwhite)] uppercase`}>
-                By Smira
-              </span>
+            <Link href="/" className="flex items-center justify-center group">
+              <img 
+                src="/logo.png" 
+                alt="Petals by Smira" 
+                className="h-12 object-contain scale-[1.7] transition-transform duration-500"
+                style={{ mixBlendMode: 'screen', filter: 'contrast(2.5) brightness(0.8)' }}
+              />
             </Link>
           </div>
 

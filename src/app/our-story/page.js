@@ -1,5 +1,4 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+
 
 export const metadata = {
   title: "Our Story | Petals by Smira",
@@ -9,7 +8,7 @@ export const metadata = {
 export default function OurStoryPage() {
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
-      <Navbar />
+
       
       <main className="flex-1 pb-24">
         {/* Hero Section */}
@@ -92,7 +91,7 @@ export default function OurStoryPage() {
         </div>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

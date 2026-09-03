@@ -3,8 +3,7 @@
 import { Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+
 import CategorySkeleton from "@/components/ui/skeleton/CategorySkeleton";
 import Link from "next/link";
 import ProductGridSkeleton from "../../components/ui/skeleton/ProductGridSkeleton";
@@ -99,11 +98,11 @@ function EditionsContent() {
 export default function EditionsPage() {
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
-      <Navbar />
+
       <Suspense fallback={<div className="min-h-screen bg-black" />}>
         <EditionsContent />
       </Suspense>
-      <Footer />
+
     </div>
   );
 }

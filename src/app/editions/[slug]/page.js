@@ -2,8 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+
 import axiosInstance from "../../../services/axiosInstance";
 
 export default function ProductDetailPage() {
@@ -23,11 +22,11 @@ export default function ProductDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black flex flex-col font-sans">
-        <Navbar />
+
         <div className="flex-1 flex items-center justify-center text-[var(--color-gold)]">
           Loading...
         </div>
-        <Footer />
+
       </div>
     );
   }
@@ -35,21 +34,21 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="min-h-screen bg-black flex flex-col font-sans">
-        <Navbar />
+
         <div className="flex-1 flex flex-col items-center justify-center text-[var(--color-gold)]">
           <h1 className="text-3xl mb-4">Edition Not Found</h1>
           <a href="/editions" className="border border-[var(--color-gold)] px-6 py-2 text-xs uppercase tracking-widest hover:bg-[var(--color-gold)] hover:text-black transition-colors">
             Return to Editions
           </a>
         </div>
-        <Footer />
+
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
-      <Navbar />
+
       
       <main className="flex-1 pt-24 md:pt-32 pb-24">
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12 flex flex-col md:flex-row gap-12 lg:gap-24">
@@ -123,7 +122,7 @@ export default function ProductDetailPage() {
         </div>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

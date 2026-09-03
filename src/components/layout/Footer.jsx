@@ -17,12 +17,12 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="space-y-6 lg:col-span-1">
             <Link href="/" className="inline-block group">
-              <h2 className="text-2xl font-serif text-[var(--color-gold)] mb-1 flex items-center gap-3 uppercase tracking-widest group-hover:text-[var(--color-gold-light)] transition-colors">
-                Petals
-              </h2>
-              <div className="text-[10px] tracking-[0.3em] font-light uppercase text-[var(--color-offwhite)]">
-                By Smira
-              </div>
+              <img 
+                src="/logo.jpg" 
+                alt="Petals by Smira" 
+                className="h-24 w-auto object-contain scale-[1.7] transition-transform duration-500 group-hover:scale-[1.75]"
+                style={{ mixBlendMode: 'screen', filter: 'contrast(2.5) brightness(0.8)' }}
+              />
             </Link>
             <p className="text-xs leading-relaxed opacity-70 italic font-serif">
               "A statement, not just a jewel."

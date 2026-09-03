@@ -1,5 +1,4 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+
 
 export const metadata = {
   title: "Experience | Petals by Smira",
@@ -27,7 +26,7 @@ const ExperienceStep = ({ number, title, description, isLast }) => (
 export default function ExperiencePage() {
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
-      <Navbar />
+
       
       <main className="flex-1 pt-32 pb-24">
         <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-12">
@@ -81,7 +80,7 @@ export default function ExperiencePage() {
         </div>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

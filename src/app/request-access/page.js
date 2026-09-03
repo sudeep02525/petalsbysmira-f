@@ -2,8 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+
 
 function RequestAccessForm() {
   const searchParams = useSearchParams();
@@ -24,7 +23,8 @@ function RequestAccessForm() {
   useEffect(() => {
     if (productSlug) {
       // Fetch product details for the preview
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productSlug}`)
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      fetch(`${apiUrl}/products/${productSlug}`)
         .then(res => res.json())
         .then(data => {
           if (data && data._id) {
@@ -51,7 +51,8 @@ function RequestAccessForm() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/requests`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await fetch(`${apiUrl}/requests`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -86,7 +87,7 @@ function RequestAccessForm() {
   }
 
   return (
-    <div className="flex-1 max-w-4xl mx-auto w-full px-5 py-24 md:py-32">
+    <div className="flex-1 max-w-[1200px] mx-auto w-full px-5 py-24 md:py-32">
       <div className="text-center mb-12">
         <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-4 font-serif`}>PRIVATE ACCESS</h1>
         <p className="text-[#A69B82] text-sm tracking-widest uppercase">Request a private consultation</p>
@@ -170,16 +171,23 @@ function RequestAccessForm() {
 
             <div className="flex flex-col gap-2">
               <label className="text-[10px] uppercase tracking-[0.2em] text-[#A69B82]">Preferred Contact Method</label>
-              <select 
-                name="preferredContactMethod"
-                value={formData.preferredContactMethod}
-                onChange={handleChange}
-                className="bg-black border border-[#333] p-3 text-[var(--color-offwhite)] focus:border-[var(--color-gold)] outline-none transition-colors appearance-none"
-              >
-                <option value="Phone">Phone</option>
-                <option value="WhatsApp">WhatsApp</option>
-                <option value="Email">Email</option>
-              </select>
+              <div className="relative">
+                <select 
+                  name="preferredContactMethod"
+                  value={formData.preferredContactMethod}
+                  onChange={handleChange}
+                  className="w-full bg-black border border-[#333] p-3 text-[var(--color-offwhite)] focus:border-[var(--color-gold)] outline-none transition-colors appearance-none pr-10"
+                >
+                  <option value="Phone">Phone</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="Email">Email</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#A69B82]">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -210,11 +218,11 @@ function RequestAccessForm() {
 export default function RequestAccessPage() {
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans">
-      <Navbar />
+
       <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--color-gold)]">Loading...</div>}>
         <RequestAccessForm />
       </Suspense>
-      <Footer />
+
     </div>
   );
 }

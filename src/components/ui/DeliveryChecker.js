@@ -8,10 +8,6 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 
 export default function DeliveryChecker({ 
-  weight = 0.5, 
-  length = 10, 
-  width = 10, 
-  height = 10, 
   onStatusChange,
   showCodStatus = true,
   className = "" 
@@ -60,11 +56,7 @@ export default function DeliveryChecker({
       // By default we check COD, which gives us both prepaid and cod status from our backend logic
       const { data } = await axiosInstance.post("/orders/check-pincode", {
         pincode: codeToCheck,
-        paymentMethod: "cod",
-        weight,
-        length,
-        width,
-        height
+        paymentMethod: "cod"
       });
       
       setResult(data);
