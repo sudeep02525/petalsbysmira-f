@@ -38,7 +38,7 @@ export default function OurStoryPage() {
               </p>
             </div>
             <div className="w-full md:w-1/2 aspect-[4/5] bg-[#111] border border-[#222] relative">
-               <img src="/story-1.jpg" alt="Craftsmanship" className="w-full h-full object-cover opacity-80" />
+               <img src="https://res.cloudinary.com/tbllydoh/image/upload/v1788430564/petalsbysmira/story/jnirts88cjirunfzqjxo.jpg" alt="Craftsmanship" className="w-full h-full object-cover opacity-80" />
             </div>
           </section>
 
@@ -54,7 +54,7 @@ export default function OurStoryPage() {
               </p>
             </div>
             <div className="w-full md:w-1/2 aspect-[4/5] bg-[#111] border border-[#222] relative">
-               <img src="/story-2.jpg" alt="Philosophy" className="w-full h-full object-cover opacity-80" />
+               <img src="https://res.cloudinary.com/tbllydoh/image/upload/v1788430565/petalsbysmira/story/wpuv1zkryubcbejipq9h.jpg" alt="Philosophy" className="w-full h-full object-cover opacity-80" />
             </div>
           </section>
 
@@ -70,7 +70,7 @@ export default function OurStoryPage() {
               </p>
             </div>
             <div className="w-full md:w-1/2 aspect-[4/5] bg-[#111] border border-[#222] relative">
-               <img src="/story-3.jpg" alt="Details" className="w-full h-full object-cover opacity-80" />
+               <img src="https://res.cloudinary.com/tbllydoh/image/upload/v1788430567/petalsbysmira/story/dpeig8s0t7neyd6z9afp.jpg" alt="Details" className="w-full h-full object-cover opacity-80" />
             </div>
           </section>
 

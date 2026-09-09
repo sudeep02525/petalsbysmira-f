@@ -2,6 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 import axiosInstance from "../../../services/axiosInstance";
 
@@ -51,6 +53,13 @@ export default function ProductDetailPage() {
 
       
       <main className="flex-1 pt-24 md:pt-32 pb-24">
+        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12 mb-8">
+          <Link href="/editions" className="inline-flex items-center gap-2 text-[var(--color-gold)] text-[10px] uppercase tracking-widest hover:text-white transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Collections
+          </Link>
+        </div>
+        
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12 flex flex-col md:flex-row gap-12 lg:gap-24">
           
           {/* Left: Product Images */}
@@ -98,18 +107,50 @@ export default function ProductDetailPage() {
               </p>
             )}
 
-            <div className="border-t border-b border-[#222] py-8 my-8 text-[#ccc] text-sm md:text-base leading-relaxed font-light">
-              <p className="whitespace-pre-line">{product.description}</p>
+            <div className="border-t border-b border-[#222] py-8 my-8 flex flex-col gap-6">
+              {product.shortDescription && (
+                <p className="text-[#fff] text-base md:text-lg leading-relaxed font-serif tracking-wide">
+                  {product.shortDescription}
+                </p>
+              )}
+              <p className="text-[#ccc] text-sm md:text-base leading-relaxed font-light whitespace-pre-line">
+                {product.description}
+              </p>
             </div>
 
-            <div className="mt-4">
-              <a 
-                href={`/request-access?product=${product.slug || product._id}`}
-                className="inline-flex w-full md:w-auto items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-5 text-xs font-medium uppercase tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-colors duration-300"
-              >
-                Request Private Access
-              </a>
-            </div>
+            {product.price ? (
+              <div className="mt-4 flex flex-col sm:flex-row gap-6 items-center">
+                <div className="flex flex-col">
+                  <span className="text-[var(--color-gold)] text-[10px] tracking-widest uppercase mb-1">Exclusive Price</span>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-2xl md:text-3xl text-white font-serif">
+                      ₹{product.discountPrice ? product.discountPrice.toLocaleString('en-IN') : product.price.toLocaleString('en-IN')}
+                    </span>
+                    {product.discountPrice && (
+                      <span className="text-sm text-gray-500 line-through">
+                        ₹{product.price.toLocaleString('en-IN')}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <a 
+                  href="#"
+                  className="inline-flex w-full sm:w-auto items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-4 text-xs font-medium uppercase tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-colors duration-300"
+                >
+                  Purchase Edition
+                </a>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-col gap-4">
+                <span className="text-[var(--color-gold)] text-[10px] tracking-widest uppercase">Price on Request</span>
+                <a 
+                  href={`/request-access?product=${product.slug || product._id}`}
+                  className="inline-flex w-full md:w-auto items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-5 text-xs font-medium uppercase tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-colors duration-300"
+                >
+                  Request Private Access
+                </a>
+              </div>
+            )}
             
             {/* Additional Brand Text */}
             <div className="mt-12 pt-8 border-t border-[#222]/50 text-xs text-[#666] uppercase tracking-widest space-y-4">

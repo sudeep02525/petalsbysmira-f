@@ -1,16 +1,18 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-
-import CategorySkeleton from "@/components/ui/skeleton/CategorySkeleton";
+import { Search, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
-import ProductGridSkeleton from "../../components/ui/skeleton/ProductGridSkeleton";
+import ProductCardSkeleton from "../../components/ui/skeleton/ProductCardSkeleton";
 import axiosInstance from "../../services/axiosInstance";
 import ProductCard from "../../components/ui/ProductCard";
 
 function EditionsContent() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
   // Fetch all categories
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ["categories"],
@@ -29,66 +31,147 @@ function EditionsContent() {
     },
   });
 
-  if (isCategoriesLoading || isProductsLoading) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-32">
-        <ProductGridSkeleton count={8} />
-      </div>
-    );
-  }
-
-  // Group products by category
-  const productsByCategory = {};
-  if (categories && products) {
-    categories.forEach(category => {
-      const categoryProducts = products.filter(
-        p => p.category?._id === category._id || p.category?.slug === category.slug || p.category === category._id
-      );
-      if (categoryProducts.length > 0) {
-        productsByCategory[category.name] = categoryProducts;
-      }
+  const filteredProducts = useMemo(() => {
+    if (!products) return [];
+    return products.filter((product) => {
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesCategory = selectedCategory === "all" || 
+                              product.category?._id === selectedCategory || 
+                              product.category?.slug === selectedCategory || 
+                              product.category === selectedCategory;
+      return matchesSearch && matchesCategory;
     });
-  }
+  }, [products, searchQuery, selectedCategory]);
+
 
   return (
     <main className="flex-1 pb-32">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-12 pt-32">
         
         {/* Header */}
-        <div className="text-center mb-24 border-b border-[#222] pb-16">
-          <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-4 tracking-widest uppercase font-serif`}>
-            The Editions
+        <div className="text-center mb-16 border-b border-white/10 pb-16">
+          <h1 className="text-3xl md:text-5xl text-[var(--color-gold)] mb-4 tracking-widest uppercase font-serif">
+            Collections
           </h1>
           <p className="text-[#A69B82] text-xs md:text-sm tracking-[0.3em] uppercase italic font-serif">
-            Curated for those who know their worth.
+            Discover the pinnacle of high jewelry.
           </p>
         </div>
 
-        {/* Collections */}
-        {Object.keys(productsByCategory).length === 0 ? (
-          <div className="text-center py-24 border border-[#222]">
-            <p className="text-[var(--color-gold)] text-sm tracking-widest uppercase">The collection is currently being curated.</p>
-          </div>
-        ) : (
-          <div className="space-y-32">
-            {Object.entries(productsByCategory).map(([categoryName, categoryProducts]) => (
-              <section key={categoryName} className="flex flex-col">
-                <div className="flex items-center justify-center mb-12 relative">
-                  <div className="absolute inset-x-0 top-1/2 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-gold)] opacity-30 to-transparent"></div>
-                  <h2 className="relative z-10 bg-black px-6 text-[var(--color-gold)] text-sm md:text-base tracking-[0.3em] uppercase">
-                    {categoryName}
-                  </h2>
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Sidebar / Filters */}
+          <aside className="w-full lg:w-64 flex-shrink-0 space-y-10">
+            {/* Search */}
+            <div className="relative group">
+              <input
+                type="text"
+                placeholder="Search collections..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent border-b border-white/20 pb-3 pt-2 pl-2 pr-10 text-sm text-white focus:outline-none focus:border-[var(--color-gold)] transition-colors placeholder:text-white/40 font-sans tracking-wide"
+              />
+              <Search className="absolute right-2 top-2 h-4 w-4 text-[var(--color-gold)] opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            {/* Categories (Desktop) */}
+            <div className="hidden lg:block space-y-6">
+              <h3 className="text-[var(--color-gold)] text-xs font-semibold tracking-[0.2em] uppercase">Categories</h3>
+              {isCategoriesLoading ? (
+                <div className="space-y-4 animate-pulse">
+                  <div className="h-4 bg-white/10 rounded w-24"></div>
+                  <div className="h-4 bg-white/10 rounded w-32"></div>
+                  <div className="h-4 bg-white/10 rounded w-28"></div>
+                  <div className="h-4 bg-white/10 rounded w-20"></div>
                 </div>
-                
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                  {categoryProducts.map((product) => (
-                    <ProductCard key={product._id} product={product} />
+              ) : (
+                <ul className="space-y-4">
+                  <li>
+                    <button 
+                      onClick={() => setSelectedCategory("all")}
+                      className={`text-sm tracking-widest uppercase transition-colors ${selectedCategory === "all" ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
+                    >
+                      All Pieces
+                    </button>
+                  </li>
+                  {categories?.map((cat) => (
+                    <li key={cat._id}>
+                      <button 
+                        onClick={() => setSelectedCategory(cat._id)}
+                        className={`text-sm tracking-widest uppercase text-left transition-colors ${selectedCategory === cat._id ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
+                      >
+                        {cat.name}
+                      </button>
+                    </li>
                   ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Categories (Mobile Toggle) */}
+            <div className="lg:hidden">
+              <button 
+                onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+                className="flex items-center gap-2 text-[var(--color-gold)] text-xs uppercase tracking-[0.2em] border border-white/10 px-4 py-3 w-full justify-center hover:bg-white/5 transition-colors"
+              >
+                <SlidersHorizontal className="w-4 h-4" />
+                Filter by Category
+              </button>
+              
+              {isMobileFiltersOpen && (
+                <div className="mt-4 p-4 border border-white/10 bg-black/50 backdrop-blur-sm">
+                  <ul className="space-y-4">
+                    <li>
+                      <button 
+                        onClick={() => { setSelectedCategory("all"); setIsMobileFiltersOpen(false); }}
+                        className={`text-xs tracking-widest uppercase transition-colors ${selectedCategory === "all" ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
+                      >
+                        All Pieces
+                      </button>
+                    </li>
+                    {categories?.map((cat) => (
+                      <li key={cat._id}>
+                        <button 
+                          onClick={() => { setSelectedCategory(cat._id); setIsMobileFiltersOpen(false); }}
+                          className={`text-xs tracking-widest uppercase text-left transition-colors ${selectedCategory === cat._id ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
+                        >
+                          {cat.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </section>
-            ))}
+              )}
+            </div>
+          </aside>
+
+          {/* Main Content Grid */}
+          <div className="flex-1">
+            <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-gold)]">
+                {isProductsLoading ? "Loading pieces..." : `Showing ${filteredProducts.length} pieces`}
+              </span>
+            </div>
+
+            {isProductsLoading ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-x-8">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <ProductCardSkeleton key={i} />
+                ))}
+              </div>
+            ) : filteredProducts.length === 0 ? (
+              <div className="text-center py-24 border border-white/10 bg-black/40">
+                <p className="text-[var(--color-gold)] text-sm tracking-widest uppercase">No pieces found matching your criteria.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-x-8">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
       </div>
     </main>
@@ -97,12 +180,10 @@ function EditionsContent() {
 
 export default function EditionsPage() {
   return (
-    <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
-
-      <Suspense fallback={<div className="min-h-screen bg-black" />}>
+    <div className="min-h-screen bg-[var(--color-black)] flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
+      <Suspense fallback={<div className="min-h-screen bg-[var(--color-black)]" />}>
         <EditionsContent />
       </Suspense>
-
     </div>
   );
 }

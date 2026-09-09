@@ -38,7 +38,7 @@ export default function HeroSection() {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full relative h-auto md:h-full">
           
           {/* Left: Heading and CTA */}
-          <div className="w-full lg:w-[55%] text-left">
+          <div className="w-full lg:w-[55%] text-left lg:-translate-x-4">
             <motion.h1 
               className={`flex flex-col text-[var(--color-offwhite)] leading-[1.1] mb-6 font-serif`}
               initial="hidden"

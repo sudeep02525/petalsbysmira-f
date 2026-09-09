@@ -35,7 +35,6 @@ export default function FeatureStrip() {
         </div>
         
         <div className="mt-24 mb-8 text-center flex flex-col items-center justify-center px-4">
-          <div className="w-px h-24 bg-gradient-to-b from-transparent via-[var(--color-gold)] to-transparent mb-10 opacity-50"></div>
           
           <p className="text-xl md:text-3xl italic font-serif text-[var(--color-offwhite)] font-light leading-relaxed max-w-2xl relative">
             <span className="text-[var(--color-gold)] text-3xl md:text-5xl absolute -top-4 -left-6 md:-left-10 opacity-80">“</span>

@@ -45,6 +45,7 @@ export default function DynamicCollections() {
           title={category.name} 
           subtitle={category.description || "Curated for those who know their worth."} 
           categoryId={category._id} 
+          type="featured"
         />
       ))}
     </>

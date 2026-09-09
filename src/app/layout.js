@@ -30,6 +30,9 @@ const greatVibes = Great_Vibes({
 export const metadata = {
   title: "Petals by Smira | Luxury Gifting",
   description: "Curated with love. Made to impress. Premium luxury gifting for birthdays, anniversaries, festivals, weddings, and milestones.",
+  icons: {
+    icon: '/fabicon.png',
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -24,7 +24,7 @@ const fetchProducts = async (type, occasion, categoryId) => {
   if (type === "featured") params.featured = true;
   if (type === "newArrival") params.newArrival = true;
   if (occasion) params.occasion = occasion;
-  if (categoryId) params.category = categoryId;
+  if (categoryId) params.collectionId = categoryId;
   
   const { data } = await axiosInstance.get("/products", { params });
   return data.products || data.data || data;
