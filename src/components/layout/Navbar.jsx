@@ -97,7 +97,7 @@ export default function Navbar() {
               Collections
               <span className={`absolute -bottom-2 left-0 h-[1px] bg-[var(--color-gold)] transition-all duration-300 ease-out ${pathname.startsWith("/editions") ? "w-full" : "w-0 group-hover:w-full"}`}></span>
             </Link>
-            <Link href="/our-story" className={`relative group transition-colors duration-300 ${pathname === "/our-story" ? "text-[var(--color-gold)]" : "hover:text-[var(--color-gold)]"}`}>
+            <Link href="/our-story" prefetch={false} className={`relative group transition-colors duration-300 ${pathname === "/our-story" ? "text-[var(--color-gold)]" : "hover:text-[var(--color-gold)]"}`}>
               Our Story
               <span className={`absolute -bottom-2 left-0 h-[1px] bg-[var(--color-gold)] transition-all duration-300 ease-out ${pathname === "/our-story" ? "w-full" : "w-0 group-hover:w-full"}`}></span>
             </Link>
@@ -119,31 +119,39 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Backdrop */}
       <div 
-        className={`md:hidden fixed inset-0 z-40 bg-black/95 backdrop-blur-xl transition-all duration-500 flex flex-col justify-center items-center ${
+        className={`md:hidden fixed inset-0 z-30 bg-black/70 backdrop-blur-sm transition-opacity duration-500 ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Mobile Sidebar */}
+      <div 
+        className={`md:hidden fixed top-0 left-0 bottom-0 w-[75%] max-w-[300px] z-40 bg-[#0d0d0d] border-r border-[#222] shadow-[20px_0_30px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] flex flex-col pt-28 px-8 ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        <nav className="flex flex-col items-center justify-center space-y-8 text-center mt-10">
-          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={`text-3xl font-serif tracking-wide transition-colors ${pathname === "/" ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
+        <nav className="flex flex-col items-start space-y-8">
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={`text-2xl font-serif tracking-wide transition-colors ${pathname === "/" ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
             Home
           </Link>
-          <Link href="/editions" onClick={() => setIsMobileMenuOpen(false)} className={`text-3xl font-serif tracking-wide transition-colors ${pathname.startsWith("/editions") ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
+          <Link href="/editions" onClick={() => setIsMobileMenuOpen(false)} className={`text-2xl font-serif tracking-wide transition-colors ${pathname.startsWith("/editions") ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
             Collections
           </Link>
-          <Link href="/our-story" onClick={() => setIsMobileMenuOpen(false)} className={`text-3xl font-serif tracking-wide transition-colors ${pathname === "/our-story" ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
+          <Link href="/our-story" prefetch={false} onClick={() => setIsMobileMenuOpen(false)} className={`text-2xl font-serif tracking-wide transition-colors ${pathname === "/our-story" ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
             Our Story
           </Link>
-          <Link href="/experience" onClick={() => setIsMobileMenuOpen(false)} className={`text-3xl font-serif tracking-wide transition-colors ${pathname === "/experience" ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
+          <Link href="/experience" onClick={() => setIsMobileMenuOpen(false)} className={`text-2xl font-serif tracking-wide transition-colors ${pathname === "/experience" ? "text-[var(--color-gold)]" : "text-[var(--color-offwhite)] hover:text-[var(--color-gold)]"}`}>
             Experience
           </Link>
           
-          <div className="pt-8 w-full px-8">
+          <div className="pt-6 mt-4 w-full border-t border-[#222]">
             <Link 
               href="/request-access" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-center border border-[var(--color-gold)] text-[var(--color-gold)] px-8 py-4 text-xs font-sans tracking-[0.25em] uppercase hover:bg-[var(--color-gold)] hover:text-black transition-all"
+              className="flex items-center justify-center border border-[var(--color-gold)] text-[var(--color-gold)] w-full py-3.5 text-[10px] font-sans tracking-[0.25em] uppercase hover:bg-[var(--color-gold)] hover:text-black transition-all"
             >
               REQUEST ACCESS
             </Link>
