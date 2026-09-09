@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-
+import Link from "next/link";
 
 function RequestAccessForm() {
   const searchParams = useSearchParams();
@@ -77,11 +77,40 @@ function RequestAccessForm() {
 
   if (status === "success") {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <h1 className={`text-3xl md:text-5xl text-[var(--color-gold)] mb-6 font-serif`}>REQUEST RECEIVED</h1>
-        <p className="text-[var(--color-offwhite)] max-w-md mx-auto leading-relaxed text-sm tracking-wide">
-          Thank you. Our private access team will contact you shortly to arrange your consultation.
-        </p>
+      <div className="flex-1 flex flex-col items-center justify-center min-h-[70vh] text-center px-5 py-24">
+        <div className="border border-[var(--color-gold)]/30 p-12 md:p-16 bg-[#0a0a0a] max-w-2xl w-full flex flex-col items-center relative overflow-hidden">
+          {/* Subtle background glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[var(--color-gold)] opacity-5 blur-[100px] pointer-events-none"></div>
+          
+          <div className="w-16 h-16 rounded-full border border-[var(--color-gold)] flex items-center justify-center mb-8 bg-[#111]">
+            <svg className="w-6 h-6 text-[var(--color-gold)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          
+          <h1 className={`text-3xl md:text-4xl text-[var(--color-gold)] mb-4 font-serif tracking-wide`}>REQUEST RECEIVED</h1>
+          
+          <div className="w-12 h-[1px] bg-[var(--color-gold)]/50 mb-6"></div>
+          
+          <p className="text-[#ccc] max-w-md mx-auto leading-relaxed text-sm font-light mb-10">
+            Thank you for your interest in Petals by Smira. Our private access team will contact you shortly to arrange your exclusive consultation.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Link 
+              href="/editions" 
+              className="inline-flex items-center justify-center border border-[#333] bg-black text-[var(--color-offwhite)] px-8 py-3.5 text-[10px] font-sans tracking-[0.2em] uppercase hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all duration-300 min-w-[200px]"
+            >
+              Continue Exploring
+            </Link>
+            <Link 
+              href="/" 
+              className="inline-flex items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-3.5 text-[10px] font-sans tracking-[0.2em] uppercase hover:bg-[#b8952b] transition-all duration-300 min-w-[200px]"
+            >
+              Return Home
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
