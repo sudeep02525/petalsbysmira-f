@@ -23,6 +23,12 @@ axiosInstance.interceptors.request.use(
           console.error("Failed to parse auth token", e);
         }
       }
+
+      // Add Private Access Token if it exists
+      const privateAccessToken = localStorage.getItem("privateAccessToken");
+      if (privateAccessToken) {
+        config.headers["x-private-access-token"] = privateAccessToken;
+      }
     }
     return config;
   },

@@ -16,9 +16,13 @@ export default function PrivateAccessPage() {
     const validateToken = async () => {
       try {
         // The backend validation endpoint will set the httpOnly cookie upon success
-        await axiosInstance.get(`/requests/private-access/validate/${token}`, {
+        const res = await axiosInstance.get(`/requests/private-access/validate/${token}`, {
           withCredentials: true, // Need this if backend sets cookie on a different domain, though Next.js rewrites might handle it.
         });
+        
+        if (res.data?.privateAccessToken) {
+          localStorage.setItem("privateAccessToken", res.data.privateAccessToken);
+        }
         
         // Success: Redirect to home page
         router.push("/");
