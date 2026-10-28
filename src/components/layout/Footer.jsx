@@ -28,7 +28,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed opacity-70 italic font-serif max-w-xs">
-              "A statement, not just a jewel."
+              &ldquo;A statement, not just a jewel.&rdquo;
             </p>
             <p className="text-xs opacity-50 max-w-xs font-light leading-loose">
               Crafting timeless luxury and exquisite diamond creations for the modern connoisseur.
@@ -40,8 +40,8 @@ export default function Footer() {
             <h3 className="font-sans text-xs font-semibold text-[var(--color-gold)] mb-8 tracking-[0.2em] uppercase">Maison</h3>
             <ul className="space-y-4 text-xs tracking-[0.1em] uppercase opacity-70">
               <li><Link href="/" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Home</Link></li>
-              <li><Link href="/about" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Our Story</Link></li>
-              <li><Link href="/shop" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Collections</Link></li>
+              <li><Link href="/our-story" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Our Story</Link></li>
+              <li><Link href="/editions" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Collections</Link></li>
               <li><Link href="/experience" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Experience</Link></li>
             </ul>
           </div>
@@ -50,8 +50,8 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <h3 className="font-sans text-xs font-semibold text-[var(--color-gold)] mb-8 tracking-[0.2em] uppercase">Clientele</h3>
             <ul className="space-y-4 text-xs tracking-[0.1em] uppercase opacity-70">
-              <li><Link href="/access" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Private Access</Link></li>
-              <li><Link href="/access" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Bespoke Services</Link></li>
+              <li><Link href="/request-access" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Private Access</Link></li>
+              <li><Link href="/corporate-gifting" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Bespoke Services</Link></li>
               <li><Link href="/contact" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Care Guide</Link></li>
               <li><Link href="/faq" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">FAQ</Link></li>
             </ul>

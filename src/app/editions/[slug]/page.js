@@ -39,9 +39,9 @@ export default function ProductDetailPage() {
 
         <div className="flex-1 flex flex-col items-center justify-center text-[var(--color-gold)]">
           <h1 className="text-3xl mb-4">Edition Not Found</h1>
-          <a href="/editions" className="border border-[var(--color-gold)] px-6 py-2 text-xs uppercase tracking-widest hover:bg-[var(--color-gold)] hover:text-black transition-colors">
+          <Link href="/editions" className="border border-[var(--color-gold)] px-6 py-2 text-xs uppercase tracking-widest hover:bg-[var(--color-gold)] hover:text-black transition-colors">
             Return to Editions
-          </a>
+          </Link>
         </div>
 
       </div>

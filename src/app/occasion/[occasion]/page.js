@@ -62,8 +62,8 @@ export default function OccasionPage() {
         ) : products.length === 0 ? (
           <div className="text-center py-20 bg-white border border-[var(--color-cream)]">
             <h3 className="font-serif text-2xl text-[var(--color-primary-dark)] mb-2">No products found</h3>
-            <p className="text-gray-500 mb-6">We couldn't find any products for this occasion.</p>
-            <Link href="/shop">
+            <p className="text-gray-500 mb-6">We couldn&apos;t find any products for this occasion.</p>
+            <Link href="/editions">
               <Button>Explore All Gifts</Button>
             </Link>
           </div>

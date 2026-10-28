@@ -14,7 +14,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div 
         className="absolute -inset-2 z-0 bg-cover bg-no-repeat bg-[position:90%_20%] sm:bg-[position:75%_center] md:bg-[position:right_center]"
-        style={{ backgroundImage: "url('/image.png')" }}
+        style={{ backgroundImage: "url('/image.jpg')" }}
       ></div>
       
       {/* Dark Gradient overlays for seamless blending */}

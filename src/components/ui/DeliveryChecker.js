@@ -19,29 +19,6 @@ export default function DeliveryChecker({
   const [result, setResult] = useState(null); // { deliverable, prepaidAvailable, codAvailable, message }
   const [hasInitialized, setHasInitialized] = useState(false);
 
-  // Initialize with default address if available
-  useEffect(() => {
-    if (isAuthenticated && !hasInitialized) {
-      const fetchDefaultAddress = async () => {
-        try {
-          const { data } = await axiosInstance.get("/users/addresses");
-          const defaultAddr = data.addresses?.find(a => a.isDefault);
-          if (defaultAddr && defaultAddr.pincode) {
-            setPincode(defaultAddr.pincode);
-            checkServiceability(defaultAddr.pincode);
-          }
-        } catch (error) {
-          console.error("Failed to fetch default address for delivery check");
-        } finally {
-          setHasInitialized(true);
-        }
-      };
-      fetchDefaultAddress();
-    } else if (!isAuthenticated) {
-      setHasInitialized(true);
-    }
-  }, [isAuthenticated, hasInitialized]);
-
   const checkServiceability = async (codeToCheck = pincode) => {
     if (!codeToCheck || codeToCheck.length !== 6 || !/^\d+$/.test(codeToCheck)) {
       const res = { success: false, message: "Please enter a valid 6-digit pincode." };
@@ -72,6 +49,32 @@ export default function DeliveryChecker({
       setIsLoading(false);
     }
   };
+
+  // Initialize with default address if available
+  useEffect(() => {
+    if (!isAuthenticated || hasInitialized) return;
+
+    let isMounted = true;
+    const fetchDefaultAddress = async () => {
+      try {
+        const { data } = await axiosInstance.get("/users/addresses");
+        const defaultAddr = data.addresses?.find((a) => a.isDefault);
+        if (defaultAddr && defaultAddr.pincode && isMounted) {
+          setPincode(defaultAddr.pincode);
+          checkServiceability(defaultAddr.pincode);
+        }
+      } catch (error) {
+        console.error("Failed to fetch default address for delivery check");
+      } finally {
+        if (isMounted) setHasInitialized(true);
+      }
+    };
+    fetchDefaultAddress();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated, hasInitialized]);
 
   const handleCheck = (e) => {
     e.preventDefault();

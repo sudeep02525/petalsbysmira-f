@@ -12,7 +12,7 @@ export default function GiftWizardSection() {
     <div className="bg-[#fcfaf7] border border-gray-200 rounded-lg p-8 sm:p-10 shadow-sm h-full flex flex-col justify-between">
       <div className="text-center mb-8">
         <h2 className="font-serif text-2xl md:text-3xl tracking-widest text-[#2c2c2c] mb-2 uppercase">Find the Perfect Gift</h2>
-        <p className="text-gray-600 text-sm">Answer a few simple questions and we'll help you find the ideal gift.</p>
+        <p className="text-gray-600 text-sm">Answer a few simple questions and we&apos;ll help you find the ideal gift.</p>
       </div>
 
       <div className="flex justify-between items-center mb-10 w-full max-w-md mx-auto">
