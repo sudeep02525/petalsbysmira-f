@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export default function ProductCard({ product }) {
   // Use product images or placeholder
@@ -9,11 +8,13 @@ export default function ProductCard({ product }) {
     ? product.images[0] 
     : "https://images.unsplash.com/photo-1599643478514-4a820cbf311e?q=80&w=800&auto=format&fit=crop";
 
+  const hasPrivatePrice = product?.price !== null && product?.price !== undefined;
+
   return (
-    <div className="group relative flex flex-col h-full bg-[#0d0d0d] border border-[var(--color-gold)] border-opacity-40 rounded-sm overflow-hidden p-2 sm:p-3 pb-5 sm:pb-6 text-center hover:border-opacity-100 hover:shadow-[0_10px_30px_rgba(212,175,55,0.15)] hover:-translate-y-1 transition-all duration-500 ease-out">
+    <div className="group relative flex flex-col h-full bg-[#0d0d0d] border border-[var(--color-gold)] border-opacity-40 rounded-sm overflow-hidden p-2 sm:p-3 pb-4 sm:pb-6 text-center hover:border-opacity-100 hover:shadow-[0_10px_30px_rgba(212,175,55,0.15)] hover:-translate-y-1 transition-all duration-500 ease-out">
       
       {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden rounded-sm bg-[#111] mb-5">
+      <div className="relative aspect-square overflow-hidden rounded-sm bg-[#111] mb-4 sm:mb-5">
         <Link href={`/editions/${product?.slug || product?._id}`} className="block w-full h-full">
           <img
             src={imageUrl}
@@ -35,23 +36,39 @@ export default function ProductCard({ product }) {
 
       {/* Product Info */}
       <div className="flex flex-col flex-grow items-center justify-between px-1">
-        <div className="mb-4 sm:mb-5">
+        <div className="mb-3 sm:mb-4">
           <Link href={`/editions/${product?.slug || product?._id}`} className="block">
-            <h3 className="font-serif text-[11px] sm:text-xs md:text-[13px] text-[var(--color-offwhite)] uppercase tracking-[0.15em] mb-1.5 line-clamp-2 min-h-[32px] sm:min-h-0 group-hover:text-[var(--color-gold)] transition-colors duration-500">
+            <h3 className="font-serif text-[11px] sm:text-xs md:text-[13px] text-[var(--color-offwhite)] uppercase tracking-[0.15em] mb-1.5 line-clamp-2 min-h-[30px] sm:min-h-0 group-hover:text-[var(--color-gold)] transition-colors duration-500">
               {product?.name || "Premium Edition"}
             </h3>
           </Link>
-          <p className="text-[9px] md:text-[10px] text-[#A69B82] font-serif italic tracking-[0.1em] opacity-80 line-clamp-1">
+          <p className="text-[9px] md:text-[10px] text-[#A69B82] font-serif italic tracking-[0.1em] opacity-80 line-clamp-1 mb-2">
             {product?.shortSubtitle || "A Legacy of Artistry"}
           </p>
+
+          {/* Private Price when unlocked */}
+          {hasPrivatePrice && (
+            <div className="pt-1 flex items-center justify-center gap-1.5">
+              <span className="text-[11px] sm:text-xs font-mono font-medium text-[var(--color-gold)]">
+                ₹{Number(product.price).toLocaleString("en-IN")}
+              </span>
+              <span className="text-[7px] uppercase tracking-widest text-emerald-400 font-sans border border-emerald-500/30 px-1 py-0.2 rounded-sm bg-emerald-950/20">
+                Unlocked
+              </span>
+            </div>
+          )}
         </div>
         
-        {/* CTA Button */}
+        {/* CTA Button with mobile-safe padding & typography */}
         <Link 
-          href={`/request-access?product=${product?.slug || product?._id}`}
-          className="mt-auto inline-flex items-center justify-center border border-[#333] bg-[#111] text-[var(--color-gold)] px-3 py-2 text-[8px] sm:text-[9px] font-sans uppercase tracking-[0.2em] hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300 w-full sm:w-auto min-w-[130px]"
+          href={hasPrivatePrice ? `/editions/${product?.slug || product?._id}` : `/request-access?product=${product?.slug || product?._id}`}
+          className="mt-auto inline-flex items-center justify-center border border-[#333] bg-[#111] text-[var(--color-gold)] px-2 sm:px-3 py-2 text-[7px] sm:text-[9px] font-sans uppercase tracking-[0.12em] sm:tracking-[0.2em] hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[130px]"
         >
-          ACCESS LIMITED &nbsp;<span className="text-[9px]">&gt;</span>
+          {hasPrivatePrice ? (
+            <span>VIEW DETAILS &nbsp;&gt;</span>
+          ) : (
+            <span>ACCESS LIMITED &nbsp;&gt;</span>
+          )}
         </Link>
       </div>
     </div>

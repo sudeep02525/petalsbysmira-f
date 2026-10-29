@@ -1,6 +1,7 @@
 import { Playfair_Display, Poppins, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import Providers from "../components/Providers";
+import PrivateAccessBanner from "../components/layout/PrivateAccessBanner";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
@@ -8,7 +9,7 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 const poppins = Poppins({
@@ -16,7 +17,7 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins",
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 const greatVibes = Great_Vibes({
@@ -57,6 +58,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${playfair.variable} ${poppins.variable} ${greatVibes.variable} antialiased font-sans min-h-screen flex flex-col`}>
         <Providers>
+          <PrivateAccessBanner />
           <Navbar />
           <main className="flex-grow">
             {children}

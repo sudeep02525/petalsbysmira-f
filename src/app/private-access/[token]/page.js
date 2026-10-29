@@ -22,10 +22,15 @@ export default function PrivateAccessPage() {
         
         if (res.data?.privateAccessToken) {
           localStorage.setItem("privateAccessToken", res.data.privateAccessToken);
+          if (res.data?.expiresAt) {
+            localStorage.setItem("privateAccessExpiresAt", res.data.expiresAt);
+          }
+          window.dispatchEvent(new Event("private-access-updated"));
         }
         
-        // Success: Replace URL so token does not persist in browser history
-        router.replace("/");
+        // Success: Redirect directly to requested piece or the collection
+        const destination = res.data?.productSlug ? `/editions/${res.data.productSlug}` : "/editions";
+        router.replace(destination);
       } catch (error) {
         setStatus("error");
         setErrorMessage(error.response?.data?.message || "Your Private Access link has expired. Please request Private Access again.");

@@ -10,7 +10,7 @@ const itemVariants = {
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full h-[100dvh] md:h-screen md:min-h-[700px] md:max-h-[1000px] bg-black flex items-center overflow-hidden border-b border-[#222]">
+    <section className="relative w-full min-h-[100dvh] md:h-screen md:min-h-[700px] md:max-h-[1000px] bg-black flex items-center overflow-hidden border-b border-[#222]">
       {/* Background Image */}
       <div 
         className="absolute -inset-2 z-0 bg-cover bg-no-repeat bg-[position:90%_20%] sm:bg-[position:75%_center] md:bg-[position:right_center]"
@@ -47,13 +47,13 @@ export default function HeroSection() {
                 visible: { transition: { staggerChildren: 0.2 } }
               }}
             >
-              <motion.span variants={itemVariants} className="text-3xl sm:text-5xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-1">
+              <motion.span variants={itemVariants} className="text-2xl sm:text-4xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-1">
                 Not everything
               </motion.span>
-              <motion.span variants={itemVariants} className="text-3xl sm:text-5xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-2">
+              <motion.span variants={itemVariants} className="text-2xl sm:text-4xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-2">
                 extraordinary comes
               </motion.span>
-              <motion.span variants={itemVariants} className={`text-5xl sm:text-7xl md:text-[85px] lg:text-[100px] text-[var(--color-gold)] font-medium mt-1 tracking-normal font-great-vibes`}>
+              <motion.span variants={itemVariants} className={`text-4xl sm:text-6xl md:text-[85px] lg:text-[100px] text-[var(--color-gold)] font-medium mt-1 tracking-normal font-great-vibes`}>
                 with a price tag.
               </motion.span>
             </motion.h1>

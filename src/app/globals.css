@@ -28,10 +28,10 @@ body {
 
 @keyframes shimmer {
   0% {
-    background-position: -1000px 0;
+    background-position: 200% 0;
   }
   100% {
-    background-position: 1000px 0;
+    background-position: -200% 0;
   }
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 .animate-shimmer {
-  animation: shimmer 2s infinite linear;
-  background: linear-gradient(to right, #111111 4%, #222222 25%, #111111 36%);
-  background-size: 1000px 100%;
+  background: linear-gradient(90deg, #151515 0%, #2f2f2f 50%, #151515 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
 }

@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../services/axiosInstance";
 import ProductSection from "./ProductSection";
+import ProductGridSkeleton from "../ui/skeleton/ProductGridSkeleton";
 
 export default function DynamicCollections() {
   const { data: categories, isLoading } = useQuery({
@@ -24,7 +25,15 @@ export default function DynamicCollections() {
     },
   });
 
-  if (isLoading) return <div className="min-h-[50vh] bg-black"></div>;
+  if (isLoading) {
+    return (
+      <div className="py-16 bg-black border-t border-[#222]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ProductGridSkeleton count={5} />
+        </div>
+      </div>
+    );
+  }
 
   // Fallback if no categories are found, just show a general section
   if (!categories || categories.length === 0) {

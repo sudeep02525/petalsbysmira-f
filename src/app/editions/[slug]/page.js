@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import ProductDetailsSkeleton from "../../../components/ui/skeleton/ProductDetailsSkeleton";
 
 import axiosInstance from "../../../services/axiosInstance";
 
@@ -24,15 +25,7 @@ export default function ProductDetailPage() {
   });
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col font-sans">
-
-        <div className="flex-1 flex items-center justify-center text-[var(--color-gold)]">
-          Loading...
-        </div>
-
-      </div>
-    );
+    return <ProductDetailsSkeleton />;
   }
 
   if (!product) {
@@ -81,7 +74,7 @@ export default function ProductDetailPage() {
             
             {/* Gallery thumbnails */}
             {product.images && product.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
                 {product.images.map((img, idx) => (
                   <button 
                     key={idx} 

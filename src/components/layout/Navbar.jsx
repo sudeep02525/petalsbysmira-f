@@ -76,12 +76,12 @@ export default function Navbar() {
           </div>
 
           {/* Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 md:static md:-translate-x-4 lg:-translate-x-10 flex-shrink-0 flex items-center justify-center z-40">
+          <div className="absolute left-1/2 -translate-x-1/2 md:static md:-translate-x-4 lg:-translate-x-10 flex-shrink-0 flex items-center justify-center z-40 max-w-[58%]">
             <Link href="/" className="flex items-center justify-center group">
               <img 
                 src="/logo.jpg" 
                 alt="Petals by Smira" 
-                className="object-contain transition-transform duration-500 rounded-sm scale-110 sm:scale-110 md:scale-110 lg:scale-110 h-16 sm:h-16 md:h-16 lg:h-16"
+                className="object-contain transition-transform duration-500 rounded-sm scale-105 sm:scale-110 md:scale-110 lg:scale-110 h-12 sm:h-16 md:h-16 lg:h-16 max-w-full"
                 style={{ mixBlendMode: 'screen', filter: 'contrast(1.5)' }}
               />
             </Link>

@@ -68,11 +68,7 @@ export default function ProductSection({ title, subtitle, type, occasion, catego
         </motion.div>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="aspect-[3/4] bg-[#111] animate-pulse"></div>
-            ))}
-          </div>
+          <ProductGridSkeleton count={5} />
         ) : error ? (
           <div className="text-center text-red-500 py-10">
             Failed to load collection.

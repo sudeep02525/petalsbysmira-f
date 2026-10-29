@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import ProductGridSkeleton from "../../../components/ui/skeleton/ProductGridSkeleton";
+import ProductCardSkeleton from "../../../components/ui/skeleton/ProductCardSkeleton";
 import axiosInstance from "../../../services/axiosInstance";
 import ProductCard from "../../../components/ui/ProductCard";
 import { Button } from "../../../components/ui/Button";
@@ -54,7 +54,11 @@ export default function OccasionPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         {isLoading ? (
-          <ProductGridSkeleton count={8} />
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <ProductCardSkeleton key={i} />
+            ))}
+          </div>
         ) : error || !products ? (
           <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
             <p className="text-gray-500 text-lg">Failed to load gifts for this occasion.</p>
