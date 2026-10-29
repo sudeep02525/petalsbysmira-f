@@ -28,10 +28,27 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata = {
-  title: "Petals by Smira | Luxury Gifting",
+  metadataBase: new URL("https://www.petalsbysmira.in"),
+  title: {
+    default: "Petals by Smira | Luxury Gifting",
+    template: "%s | Petals by Smira",
+  },
   description: "Curated with love. Made to impress. Premium luxury gifting for birthdays, anniversaries, festivals, weddings, and milestones.",
   icons: {
-    icon: '/fabicon.png',
+    icon: "/fabicon.png",
+  },
+  openGraph: {
+    title: "Petals by Smira",
+    description: "Curated with love. Made to impress.",
+    url: "https://www.petalsbysmira.in",
+    siteName: "Petals by Smira",
+    images: ["/image.jpg"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Petals by Smira",
+    images: ["/image.jpg"],
   },
 };
 

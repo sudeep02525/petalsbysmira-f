@@ -26,7 +26,7 @@ export default function OccasionPage() {
   const params = useParams();
   const occasion = params.occasion;
   
-  const title = typeof occasion === "string" ? (occasion === "all" ? "All Occasions" : occasion.replace("-", " ")) : "";
+  const title = typeof occasion === "string" ? (occasion === "all" ? "All Occasions" : occasion.replace(/-/g, " ")) : "";
 
   const { data: products, isLoading, error } = useQuery({
     queryKey: ["products", "occasion", occasion],

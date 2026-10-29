@@ -9,6 +9,7 @@ import { Building2, Briefcase, Gift, CheckCircle2 } from "lucide-react";
 
 import { Input } from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
+import axiosInstance from "../../services/axiosInstance";
 
 const enquirySchema = yup.object().shape({
   companyName: yup.string().required("Company name is required"),
@@ -30,14 +31,14 @@ export default function CorporateGiftingPage() {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    // Simulate API call for enquiry
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await axiosInstance.post("/corporate-enquiries", data);
       setIsSuccess(true);
       reset();
       toast.success("Enquiry submitted successfully!");
     } catch (error) {
-      toast.error("Failed to submit enquiry. Please try again.");
+      toast.error(error.response?.data?.message || "Failed to submit enquiry. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -102,11 +103,11 @@ export default function CorporateGiftingPage() {
                 <div className="space-y-6">
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Email</p>
-                    <p className="text-sm">corporate@petalsbysmira.com</p>
+                    <p className="text-sm">concierge@petalsbysmira.in</p>
                   </div>
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Phone</p>
-                    <p className="text-sm">+91 98765 43211</p>
+                    <p className="text-sm">+91 98765 43210 (Private Line)</p>
                   </div>
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Minimum Order</p>

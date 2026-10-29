@@ -63,7 +63,7 @@ export default function Footer() {
             <ul className="space-y-6 text-xs opacity-70 tracking-wider font-light">
               <li className="flex items-start group">
                 <MapPin className="h-4 w-4 mr-4 text-[var(--color-gold)] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <span className="leading-relaxed">123 Luxury Avenue, <br/>Mumbai, India 400001</span>
+                <span className="leading-relaxed">Mumbai, Maharashtra, India</span>
               </li>
               <li className="flex items-start group">
                 <Phone className="h-4 w-4 mr-4 text-[var(--color-gold)] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center group">
                 <Mail className="h-4 w-4 mr-4 text-[var(--color-gold)] flex-shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="mailto:concierge@petalsbysmira.com" className="hover:text-[var(--color-gold)] transition-colors">concierge@petalsbysmira.com</a>
+                <a href="mailto:concierge@petalsbysmira.in" className="hover:text-[var(--color-gold)] transition-colors">concierge@petalsbysmira.in</a>
               </li>
             </ul>
           </div>
@@ -84,13 +84,13 @@ export default function Footer() {
           </p>
           
           <div className="flex items-center space-x-4">
-            <a href="#" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Instagram">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Instagram">
               IG
             </a>
-            <a href="#" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Facebook">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Facebook">
               FB
             </a>
-            <a href="#" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Twitter">
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Twitter">
               X
             </a>
           </div>

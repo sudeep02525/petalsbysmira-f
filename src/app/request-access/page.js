@@ -44,12 +44,6 @@ function RequestAccessForm() {
     setStatus("submitting");
     setErrorMessage("");
 
-    if (!productData) {
-      setStatus("error");
-      setErrorMessage("No product selected. Please select a product from The Editions first.");
-      return;
-    }
-
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
       const res = await fetch(`${apiUrl}/requests`, {
@@ -57,9 +51,11 @@ function RequestAccessForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          productId: productData._id,
-          collectionId: productData.collectionId || productData.category
-        })
+          ...(productData && {
+            productId: productData._id,
+            collectionId: productData.collectionId || productData.category,
+          }),
+        }),
       });
 
       const data = await res.json();
@@ -131,7 +127,7 @@ function RequestAccessForm() {
             <div className="flex flex-col gap-4">
               <div className="aspect-square relative w-full bg-black">
                 <img 
-                  src={productData.images?.[0] || "/placeholder.jpg"} 
+                  src={productData.images?.[0] || "/image.jpg"} 
                   alt={productData.name} 
                   className="w-full h-full object-cover"
                 />
@@ -191,6 +187,8 @@ function RequestAccessForm() {
                   required 
                   type="tel" 
                   name="phone"
+                  pattern="[0-9+\s-]{10,15}"
+                  title="Enter a valid phone number"
                   value={formData.phone}
                   onChange={handleChange}
                   className="bg-transparent border border-[#333] p-3 text-[var(--color-offwhite)] focus:border-[var(--color-gold)] outline-none transition-colors"
@@ -232,7 +230,7 @@ function RequestAccessForm() {
 
             <button 
               type="submit" 
-              disabled={status === "submitting" || !productData}
+              disabled={status === "submitting"}
               className="mt-4 bg-[var(--color-gold)] text-black font-medium text-xs uppercase tracking-[0.25em] py-4 px-8 hover:bg-[#b8952b] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === "submitting" ? "Submitting..." : "Submit Request"}

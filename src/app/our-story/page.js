@@ -13,7 +13,7 @@ export default function OurStoryPage() {
       <main className="flex-1 pb-24">
         {/* Hero Section */}
         <div className="relative w-full h-[60vh] md:h-[80vh] flex flex-col items-center justify-center border-b border-[#222]">
-          <div className="absolute inset-0 bg-[url('/about-hero.jpg')] bg-cover bg-center opacity-40"></div>
+          <div className="absolute inset-0 bg-[url('/image.jpg')] bg-cover bg-center opacity-40"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
           <div className="relative z-10 text-center px-4">
             <h1 className={`text-4xl md:text-7xl text-[var(--color-gold)] mb-6 font-serif tracking-wide`}>
