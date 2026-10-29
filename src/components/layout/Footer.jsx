@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start group">
                 <Phone className="h-4 w-4 mr-4 text-[var(--color-gold)] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <span>+91 98765 43210 <br/><span className="text-[10px] opacity-75 mt-1 block">(Private Consultation)</span></span>
+                <span>{process.env.NEXT_PUBLIC_CONCIERGE_PHONE || (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ? `+${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}` : "Concierge on Request")} <br/><span className="text-[10px] opacity-75 mt-1 block">(Private Consultation)</span></span>
               </li>
               <li className="flex items-center group">
                 <Mail className="h-4 w-4 mr-4 text-[var(--color-gold)] flex-shrink-0 group-hover:scale-110 transition-transform" />

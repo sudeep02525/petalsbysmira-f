@@ -107,7 +107,7 @@ export default function CorporateGiftingPage() {
                   </div>
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Phone</p>
-                    <p className="text-sm">+91 98765 43210 (Private Line)</p>
+                    <p className="text-sm">{process.env.NEXT_PUBLIC_CONCIERGE_PHONE || (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ? `+${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}` : "Private Line on Request")}</p>
                   </div>
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Minimum Order</p>

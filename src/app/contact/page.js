@@ -7,10 +7,13 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210";
-  const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hello Petals by Smira Concierge, I would like to schedule a private consultation."
-  )}`;
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const conciergePhone = process.env.NEXT_PUBLIC_CONCIERGE_PHONE || (whatsappNumber ? `+${whatsappNumber}` : "");
+  const whatsappHref = whatsappNumber
+    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        "Hello Petals by Smira Concierge, I would like to schedule a private consultation."
+      )}`
+    : "/request-access";
 
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
@@ -40,12 +43,21 @@ export default function ContactPage() {
               </div>
               <h3 className="font-serif text-lg text-white mb-2">Private Consultation</h3>
               <p className="text-xs text-[#888] mb-4">Dedicated direct phone assistance for private clientele</p>
-              <a
-                href="tel:+919876543210"
-                className="text-sm font-medium text-[var(--color-gold)] hover:underline"
-              >
-                +91 98765 43210
-              </a>
+              {conciergePhone ? (
+                <a
+                  href={`tel:${conciergePhone.replace(/\s+/g, "")}`}
+                  className="text-sm font-medium text-[var(--color-gold)] hover:underline"
+                >
+                  {conciergePhone}
+                </a>
+              ) : (
+                <Link
+                  href="/request-access"
+                  className="text-sm font-medium text-[var(--color-gold)] hover:underline"
+                >
+                  Request Consultation
+                </Link>
+              )}
             </div>
 
             <div className="bg-[#0c0c0c] border border-[#222] p-8 rounded-xl flex flex-col items-center text-center hover:border-[var(--color-gold)]/40 transition-colors">
@@ -56,8 +68,7 @@ export default function ContactPage() {
               <p className="text-xs text-[#888] mb-4">Direct bespoke inquiries and discreet private access</p>
               <a
                 href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(whatsappNumber ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="text-sm font-medium text-[var(--color-gold)] hover:underline"
               >
                 Start Conversation
