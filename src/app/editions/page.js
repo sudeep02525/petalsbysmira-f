@@ -12,6 +12,7 @@ function EditionsContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  const [page, setPage] = useState(1);
 
   // Fetch all categories
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
@@ -22,14 +23,17 @@ function EditionsContent() {
     },
   });
 
-  // Fetch all active products
-  const { data: products, isLoading: isProductsLoading } = useQuery({
-    queryKey: ["products", "all"],
+  // Fetch active products with pagination
+  const { data: productResponse, isLoading: isProductsLoading } = useQuery({
+    queryKey: ["products", page],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("/products", { params: { limit: 100 } });
-      return data.products || data.data || data;
+      const { data } = await axiosInstance.get("/products", { params: { page, limit: 24 } });
+      return data;
     },
   });
+
+  const products = productResponse?.products || [];
+  const totalPages = productResponse?.totalPages || 1;
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
@@ -44,51 +48,61 @@ function EditionsContent() {
     });
   }, [products, searchQuery, selectedCategory]);
 
-
   return (
     <main className="flex-1 pb-32">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-12 pt-32">
         
-        {/* Header */}
-        <div className="text-center mb-16 border-b border-white/10 pb-16">
-          <h1 className="text-3xl md:text-5xl text-[var(--color-gold)] mb-4 tracking-widest uppercase font-serif">
-            Collections
+        {/* Page Header */}
+        <div className="text-center mb-16 sm:mb-24">
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[var(--color-gold)] font-sans mb-4 block">
+            The Complete Atelier Collection
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-[var(--color-offwhite)] tracking-wide mb-6">
+            Private Editions
           </h1>
-          <p className="text-[#A69B82] text-xs md:text-sm tracking-[0.3em] uppercase italic font-serif">
-            Discover the pinnacle of high jewelry.
-          </p>
+          <div className="w-16 h-[1px] bg-[var(--color-gold)] mx-auto opacity-60"></div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Sidebar / Filters */}
-          <aside className="w-full lg:w-64 flex-shrink-0 space-y-10">
-            {/* Search */}
-            <div className="relative group">
+        {/* Layout Grid: Sidebar + Product Grid */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+          
+          {/* Left Sidebar (Filters) */}
+          <aside className="w-full lg:w-64 flex-shrink-0 space-y-8">
+            
+            {/* Search Input */}
+            <div className="relative">
               <input
                 type="text"
-                placeholder="Search collections..."
+                placeholder="Search creations..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-b border-white/20 pb-3 pt-2 pl-2 pr-10 text-sm text-white focus:outline-none focus:border-[var(--color-gold)] transition-colors placeholder:text-white/40 font-sans tracking-wide"
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setPage(1);
+                }}
+                className="w-full bg-[#111] border border-white/10 px-4 py-3 pl-10 text-xs tracking-wider text-white placeholder-white/30 focus:outline-none focus:border-[var(--color-gold)] transition-colors"
               />
-              <Search className="absolute right-2 top-2 h-4 w-4 text-[var(--color-gold)] opacity-70 group-hover:opacity-100 transition-opacity" />
+              <Search className="w-4 h-4 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
             {/* Categories (Desktop) */}
             <div className="hidden lg:block space-y-6">
-              <h3 className="text-[var(--color-gold)] text-xs font-semibold tracking-[0.2em] uppercase">Categories</h3>
+              <h3 className="text-xs uppercase tracking-[0.2em] text-[var(--color-gold)] border-b border-white/10 pb-3 font-serif">
+                Collections
+              </h3>
               {isCategoriesLoading ? (
-                <div className="space-y-4 animate-pulse">
-                  <div className="h-4 bg-white/10 rounded w-24"></div>
-                  <div className="h-4 bg-white/10 rounded w-32"></div>
-                  <div className="h-4 bg-white/10 rounded w-28"></div>
-                  <div className="h-4 bg-white/10 rounded w-20"></div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-white/5 animate-pulse w-3/4"></div>
+                  <div className="h-4 bg-white/5 animate-pulse w-1/2"></div>
+                  <div className="h-4 bg-white/5 animate-pulse w-2/3"></div>
                 </div>
               ) : (
-                <ul className="space-y-4">
+                <ul className="space-y-3">
                   <li>
                     <button 
-                      onClick={() => setSelectedCategory("all")}
+                      onClick={() => {
+                        setSelectedCategory("all");
+                        setPage(1);
+                      }}
                       className={`text-sm tracking-widest uppercase transition-colors ${selectedCategory === "all" ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
                     >
                       All Pieces
@@ -97,7 +111,10 @@ function EditionsContent() {
                   {categories?.map((cat) => (
                     <li key={cat._id}>
                       <button 
-                        onClick={() => setSelectedCategory(cat._id)}
+                        onClick={() => {
+                          setSelectedCategory(cat._id);
+                          setPage(1);
+                        }}
                         className={`text-sm tracking-widest uppercase text-left transition-colors ${selectedCategory === cat._id ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
                       >
                         {cat.name}
@@ -123,7 +140,7 @@ function EditionsContent() {
                   <ul className="space-y-4">
                     <li>
                       <button 
-                        onClick={() => { setSelectedCategory("all"); setIsMobileFiltersOpen(false); }}
+                        onClick={() => { setSelectedCategory("all"); setIsMobileFiltersOpen(false); setPage(1); }}
                         className={`text-xs tracking-widest uppercase transition-colors ${selectedCategory === "all" ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
                       >
                         All Pieces
@@ -132,7 +149,7 @@ function EditionsContent() {
                     {categories?.map((cat) => (
                       <li key={cat._id}>
                         <button 
-                          onClick={() => { setSelectedCategory(cat._id); setIsMobileFiltersOpen(false); }}
+                          onClick={() => { setSelectedCategory(cat._id); setIsMobileFiltersOpen(false); setPage(1); }}
                           className={`text-xs tracking-widest uppercase text-left transition-colors ${selectedCategory === cat._id ? "text-[var(--color-gold)]" : "text-white/50 hover:text-[var(--color-gold)]"}`}
                         >
                           {cat.name}
@@ -164,11 +181,41 @@ function EditionsContent() {
                 <p className="text-[var(--color-gold)] text-sm tracking-widest uppercase">No pieces found matching your criteria.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-x-8">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-x-8">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product._id} product={product} />
+                  ))}
+                </div>
+
+                {totalPages > 1 && (
+                  <div className="mt-16 pt-8 border-t border-white/10 flex justify-center items-center gap-4">
+                    <button
+                      disabled={page === 1}
+                      onClick={() => {
+                        setPage((p) => Math.max(1, p - 1));
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="px-6 py-2.5 text-xs uppercase tracking-widest border border-white/20 text-white disabled:opacity-30 hover:border-[var(--color-gold)] transition-colors"
+                    >
+                      Previous
+                    </button>
+                    <span className="text-xs font-mono tracking-widest text-[var(--color-gold)]">
+                      {page} / {totalPages}
+                    </span>
+                    <button
+                      disabled={page === totalPages}
+                      onClick={() => {
+                        setPage((p) => Math.min(totalPages, p + 1));
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="px-6 py-2.5 text-xs uppercase tracking-widest border border-white/20 text-white disabled:opacity-30 hover:border-[var(--color-gold)] transition-colors"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

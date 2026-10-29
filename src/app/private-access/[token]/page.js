@@ -24,8 +24,8 @@ export default function PrivateAccessPage() {
           localStorage.setItem("privateAccessToken", res.data.privateAccessToken);
         }
         
-        // Success: Redirect to home page
-        router.push("/");
+        // Success: Replace URL so token does not persist in browser history
+        router.replace("/");
       } catch (error) {
         setStatus("error");
         setErrorMessage(error.response?.data?.message || "Your Private Access link has expired. Please request Private Access again.");

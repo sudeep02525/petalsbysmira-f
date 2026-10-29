@@ -22,7 +22,7 @@ export default function FAQPage() {
         },
         {
           q: "Can private access be shared with colleagues or family?",
-          a: "Each private access link is cryptographically tied to the verified applicant and remains valid for 24 hours. We kindly ask that members of your circle request their own invitation.",
+          a: "Each private access link is unique to your private invitation and remains valid for 24 hours. We kindly ask that members of your circle submit their own request for access.",
         },
       ],
     },

@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import axiosInstance from "../../services/axiosInstance";
 
 function RequestAccessForm() {
   const searchParams = useSearchParams();
@@ -22,16 +23,14 @@ function RequestAccessForm() {
 
   useEffect(() => {
     if (productSlug) {
-      // Fetch product details for the preview
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-      fetch(`${apiUrl}/products/${productSlug}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data._id) {
-            setProductData(data);
+      axiosInstance
+        .get(`/products/${productSlug}`)
+        .then((res) => {
+          if (res.data && res.data._id) {
+            setProductData(res.data);
           }
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
     }
   }, [productSlug]);
 
@@ -45,29 +44,18 @@ function RequestAccessForm() {
     setErrorMessage("");
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-      const res = await fetch(`${apiUrl}/requests`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          ...(productData && {
-            productId: productData._id,
-            collectionId: productData.collectionId || productData.category,
-          }),
+      await axiosInstance.post("/requests", {
+        ...formData,
+        ...(productData && {
+          productId: productData._id,
+          collectionId: productData.collectionId || productData.category,
         }),
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to submit request");
-      }
 
       setStatus("success");
     } catch (error) {
       setStatus("error");
-      setErrorMessage(error.message);
+      setErrorMessage(error.response?.data?.message || error.message || "Failed to submit request");
     }
   };
 

@@ -6,24 +6,10 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-// Request interceptor to add token
+// Request interceptor to attach private access token
 axiosInstance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
-      // Get the zustand store state from localStorage
-      const authStorage = localStorage.getItem("auth-storage");
-      if (authStorage) {
-        try {
-          const parsed = JSON.parse(authStorage);
-          const token = parsed?.state?.token;
-          if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-          }
-        } catch (e) {
-          console.error("Failed to parse auth token", e);
-        }
-      }
-
       // Add Private Access Token if it exists
       const privateAccessToken = localStorage.getItem("privateAccessToken");
       if (privateAccessToken) {
@@ -39,7 +25,12 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    // You can handle global 401s here
+    if (typeof window !== "undefined") {
+      if (error.response?.status === 401 && error.config?.headers?.["x-private-access-token"]) {
+        localStorage.removeItem("privateAccessToken");
+        window.dispatchEvent(new Event("private-access-expired"));
+      }
+    }
     return Promise.reject(error);
   }
 );
