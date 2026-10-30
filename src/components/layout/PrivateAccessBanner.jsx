@@ -38,14 +38,16 @@ export default function PrivateAccessBanner() {
   useEffect(() => {
     setMounted(true);
     checkAccess();
+
+    const handleExpired = () => setHasAccess(false);
+
     window.addEventListener("private-access-updated", checkAccess);
-    window.addEventListener("private-access-expired", () => {
-      setHasAccess(false);
-    });
+    window.addEventListener("private-access-expired", handleExpired);
 
     const interval = setInterval(checkAccess, 60000);
     return () => {
       window.removeEventListener("private-access-updated", checkAccess);
+      window.removeEventListener("private-access-expired", handleExpired);
       clearInterval(interval);
     };
   }, []);

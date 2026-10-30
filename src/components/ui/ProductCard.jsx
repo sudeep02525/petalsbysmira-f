@@ -9,6 +9,7 @@ export default function ProductCard({ product }) {
     : "https://images.unsplash.com/photo-1599643478514-4a820cbf311e?q=80&w=800&auto=format&fit=crop";
 
   const hasPrivatePrice = product?.price !== null && product?.price !== undefined;
+  const isGated = Boolean(product?.requestAccessEnabled);
 
   return (
     <div className="group relative flex flex-col h-full bg-[#0d0d0d] border border-[var(--color-gold)] border-opacity-40 rounded-sm overflow-hidden p-2 sm:p-3 pb-4 sm:pb-6 text-center hover:border-opacity-100 hover:shadow-[0_10px_30px_rgba(212,175,55,0.15)] hover:-translate-y-1 transition-all duration-500 ease-out">
@@ -52,9 +53,11 @@ export default function ProductCard({ product }) {
               <span className="text-[11px] sm:text-xs font-mono font-medium text-[var(--color-gold)]">
                 ₹{Number(product.price).toLocaleString("en-IN")}
               </span>
-              <span className="text-[7px] uppercase tracking-widest text-emerald-400 font-sans border border-emerald-500/30 px-1 py-0.2 rounded-sm bg-emerald-950/20">
-                Unlocked
-              </span>
+              {isGated && (
+                <span className="text-[7px] uppercase tracking-widest text-emerald-400 font-sans border border-emerald-500/30 px-1 py-0.2 rounded-sm bg-emerald-950/20">
+                  Unlocked
+                </span>
+              )}
             </div>
           )}
         </div>
