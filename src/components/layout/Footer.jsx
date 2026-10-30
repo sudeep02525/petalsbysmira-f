@@ -16,7 +16,7 @@ export default function Footer() {
           
           {/* Brand Column - Left aligned across all breakpoints */}
           <div className="col-span-2 md:col-span-4 lg:col-span-4 space-y-4 sm:space-y-6 flex flex-col items-start text-left">
-            <Link href="/" className="inline-block group">
+            <Link href="/" prefetch={false} className="inline-block group">
               <img 
                 src="/logo.jpg" 
                 alt="Petals by Smira" 
@@ -38,10 +38,10 @@ export default function Footer() {
               Maison
             </h3>
             <ul className="space-y-3.5 text-xs tracking-[0.1em] uppercase opacity-70">
-              <li><Link href="/" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Home</Link></li>
-              <li><Link href="/our-story" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Our Story</Link></li>
-              <li><Link href="/editions" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Collections</Link></li>
-              <li><Link href="/experience" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Experience</Link></li>
+              <li><Link href="/" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Home</Link></li>
+              <li><Link href="/our-story" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Our Story</Link></li>
+              <li><Link href="/editions" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Collections</Link></li>
+              <li><Link href="/experience" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Experience</Link></li>
             </ul>
           </div>
 
@@ -51,10 +51,10 @@ export default function Footer() {
               Clientele
             </h3>
             <ul className="space-y-3.5 text-xs tracking-[0.1em] uppercase opacity-70">
-              <li><Link href="/request-access" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Private Access</Link></li>
-              <li><Link href="/corporate-gifting" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Bespoke Services</Link></li>
-              <li><Link href="/contact" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Care Guide</Link></li>
-              <li><Link href="/faq" className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">FAQ</Link></li>
+              <li><Link href="/request-access" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Private Access</Link></li>
+              <li><Link href="/corporate-gifting" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Bespoke Services</Link></li>
+              <li><Link href="/contact" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Care Guide</Link></li>
+              <li><Link href="/faq" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">FAQ</Link></li>
             </ul>
           </div>
 
@@ -105,8 +105,8 @@ export default function Footer() {
           </div>
 
           <div className="flex space-x-6 text-[10px] opacity-50 uppercase tracking-[0.1em] text-left md:text-right order-3 md:order-3">
-            <Link href="/privacy" className="hover:text-[var(--color-gold)] transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-[var(--color-gold)] transition-colors">Terms of Service</Link>
+            <Link href="/privacy" prefetch={false} className="hover:text-[var(--color-gold)] transition-colors">Privacy Policy</Link>
+            <Link href="/terms" prefetch={false} className="hover:text-[var(--color-gold)] transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
