@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useMemo } from "react";
+import { Suspense, useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -32,12 +32,29 @@ function EditionsContent() {
     },
   });
 
-  const products = productResponse?.products || [];
   const totalPages = productResponse?.totalPages || 1;
+  const [accumulatedProducts, setAccumulatedProducts] = useState([]);
+
+  useEffect(() => {
+    if (!productResponse?.products) return;
+    if (page === 1) {
+      setAccumulatedProducts(productResponse.products);
+    } else {
+      setAccumulatedProducts((prev) => {
+        const existingIds = new Set(prev.map((p) => p._id));
+        const newItems = productResponse.products.filter((p) => !existingIds.has(p._id));
+        return [...prev, ...newItems];
+      });
+    }
+  }, [productResponse?.products, page]);
+
+  const displayProducts = page === 1 && accumulatedProducts.length === 0 && productResponse?.products
+    ? productResponse.products
+    : accumulatedProducts;
 
   const filteredProducts = useMemo(() => {
-    if (!products) return [];
-    return products.filter((product) => {
+    if (!displayProducts) return [];
+    return displayProducts.filter((product) => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
       const matchesCategory = selectedCategory === "all" || 
@@ -46,7 +63,7 @@ function EditionsContent() {
                               product.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [products, searchQuery, selectedCategory]);
+  }, [displayProducts, searchQuery, selectedCategory]);
 
   return (
     <main className="flex-1 pb-32">
@@ -188,31 +205,18 @@ function EditionsContent() {
                   ))}
                 </div>
 
-                {totalPages > 1 && (
-                  <div className="mt-16 pt-8 border-t border-white/10 flex justify-center items-center gap-4">
+                {page < totalPages && (
+                  <div className="mt-16 text-center border-t border-white/10 pt-10">
                     <button
-                      disabled={page === 1}
-                      onClick={() => {
-                        setPage((p) => Math.max(1, p - 1));
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                      className="px-6 py-2.5 text-xs uppercase tracking-widest border border-white/20 text-white disabled:opacity-30 hover:border-[var(--color-gold)] transition-colors"
+                      onClick={() => setPage((p) => p + 1)}
+                      disabled={isProductsLoading}
+                      className="px-10 py-3.5 bg-[#111] border border-[var(--color-gold)]/40 hover:border-[var(--color-gold)] text-[var(--color-gold)] text-xs tracking-[0.25em] uppercase font-sans transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] disabled:opacity-50 inline-flex items-center gap-2"
                     >
-                      Previous
+                      {isProductsLoading ? "Loading More Pieces..." : "Load More Pieces \u2193"}
                     </button>
-                    <span className="text-xs font-mono tracking-widest text-[var(--color-gold)]">
-                      {page} / {totalPages}
-                    </span>
-                    <button
-                      disabled={page === totalPages}
-                      onClick={() => {
-                        setPage((p) => Math.min(totalPages, p + 1));
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                      className="px-6 py-2.5 text-xs uppercase tracking-widest border border-white/20 text-white disabled:opacity-30 hover:border-[var(--color-gold)] transition-colors"
-                    >
-                      Next
-                    </button>
+                    <p className="text-[10px] text-[#A69B82] mt-3 font-mono tracking-wider">
+                      Page {page} of {totalPages}
+                    </p>
                   </div>
                 )}
               </>
