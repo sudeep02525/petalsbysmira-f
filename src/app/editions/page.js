@@ -24,7 +24,7 @@ function EditionsContent() {
   });
 
   // Fetch active products with pagination
-  const { data: productResponse, isLoading: isProductsLoading } = useQuery({
+  const { data: productResponse, isLoading: isProductsLoading, isFetching } = useQuery({
     queryKey: ["products", page],
     queryFn: async () => {
       const { data } = await axiosInstance.get("/products", { params: { page, limit: 24 } });
@@ -32,8 +32,14 @@ function EditionsContent() {
     },
   });
 
-  const totalPages = productResponse?.totalPages || 1;
+  const [totalPages, setTotalPages] = useState(1);
   const [accumulatedProducts, setAccumulatedProducts] = useState([]);
+
+  useEffect(() => {
+    if (productResponse?.totalPages) {
+      setTotalPages(productResponse.totalPages);
+    }
+  }, [productResponse?.totalPages]);
 
   useEffect(() => {
     if (!productResponse?.products) return;
@@ -47,6 +53,8 @@ function EditionsContent() {
       });
     }
   }, [productResponse?.products, page]);
+
+  const isInitialLoading = isProductsLoading && accumulatedProducts.length === 0;
 
   const displayProducts = page === 1 && accumulatedProducts.length === 0 && productResponse?.products
     ? productResponse.products
@@ -183,11 +191,11 @@ function EditionsContent() {
           <div className="flex-1">
             <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
               <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-gold)]">
-                {isProductsLoading ? "Loading pieces..." : `Showing ${filteredProducts.length} pieces`}
+                {isInitialLoading ? "Loading pieces..." : `Showing ${filteredProducts.length} pieces`}
               </span>
             </div>
 
-            {isProductsLoading ? (
+            {isInitialLoading ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-x-8">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
@@ -209,10 +217,10 @@ function EditionsContent() {
                   <div className="mt-16 text-center border-t border-white/10 pt-10">
                     <button
                       onClick={() => setPage((p) => p + 1)}
-                      disabled={isProductsLoading}
+                      disabled={isFetching}
                       className="px-10 py-3.5 bg-[#111] border border-[var(--color-gold)]/40 hover:border-[var(--color-gold)] text-[var(--color-gold)] text-xs tracking-[0.25em] uppercase font-sans transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] disabled:opacity-50 inline-flex items-center gap-2"
                     >
-                      {isProductsLoading ? "Loading More Pieces..." : "Load More Pieces \u2193"}
+                      {isFetching ? "Loading More Pieces..." : "Load More Pieces \u2193"}
                     </button>
                     <p className="text-[10px] text-[#A69B82] mt-3 font-mono tracking-wider">
                       Page {page} of {totalPages}
