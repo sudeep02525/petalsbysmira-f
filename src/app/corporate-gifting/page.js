@@ -103,11 +103,11 @@ export default function CorporateGiftingPage() {
                 <div className="space-y-6">
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Email</p>
-                    <p className="text-sm">concierge@petalsbysmira.in</p>
+                    <p className="text-sm">petalsbysmira@gmail.com</p>
                   </div>
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Phone</p>
-                    <p className="text-sm">{process.env.NEXT_PUBLIC_CONCIERGE_PHONE || (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ? `+${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}` : "Private Line on Request")}</p>
+                    <p className="text-sm">{process.env.NEXT_PUBLIC_CONCIERGE_PHONE || "+91 99206 88099"}</p>
                   </div>
                   <div>
                     <p className="text-xs text-[var(--color-gold)] font-bold uppercase tracking-wider mb-1">Minimum Order</p>

@@ -7,13 +7,11 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-  const conciergePhone = process.env.NEXT_PUBLIC_CONCIERGE_PHONE || (whatsappNumber ? `+${whatsappNumber}` : "");
-  const whatsappHref = whatsappNumber
-    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-        "Hello Petals by Smira Concierge, I would like to schedule a private consultation."
-      )}`
-    : "/request-access";
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919920688099";
+  const conciergePhone = process.env.NEXT_PUBLIC_CONCIERGE_PHONE || "+91 99206 88099";
+  const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Hello Petals by Smira Concierge, I would like to schedule a private consultation."
+  )}`;
 
   return (
     <div className="min-h-screen bg-black flex flex-col font-sans selection:bg-[var(--color-gold)] selection:text-black">
@@ -82,10 +80,10 @@ export default function ContactPage() {
               <h3 className="font-serif text-lg text-white mb-2">Written Correspondence</h3>
               <p className="text-xs text-[#888] mb-4">Inquiries regarding corporate gifting and commissions</p>
               <a
-                href="mailto:concierge@petalsbysmira.in"
+                href="mailto:petalsbysmira@gmail.com"
                 className="text-sm font-medium text-[var(--color-gold)] hover:underline"
               >
-                concierge@petalsbysmira.in
+                petalsbysmira@gmail.com
               </a>
             </div>
           </div>

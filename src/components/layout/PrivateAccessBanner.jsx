@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Sparkles, X, KeyRound } from "lucide-react";
 
 export default function PrivateAccessBanner() {
+  const [mounted, setMounted] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [remainingText, setRemainingText] = useState("");
@@ -35,6 +36,7 @@ export default function PrivateAccessBanner() {
   };
 
   useEffect(() => {
+    setMounted(true);
     checkAccess();
     window.addEventListener("private-access-updated", checkAccess);
     window.addEventListener("private-access-expired", () => {
@@ -48,7 +50,7 @@ export default function PrivateAccessBanner() {
     };
   }, []);
 
-  if (!hasAccess || dismissed) return null;
+  if (!mounted || !hasAccess || dismissed) return null;
 
   return (
     <div className="relative z-50 bg-[#0d0d0d] border-b border-[var(--color-gold)]/40 text-[var(--color-gold)] py-1.5 px-4 text-center text-[10px] sm:text-xs tracking-[0.2em] uppercase font-sans flex items-center justify-center gap-2">

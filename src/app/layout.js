@@ -55,8 +55,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${playfair.variable} ${poppins.variable} ${greatVibes.variable} antialiased font-sans min-h-screen flex flex-col`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${playfair.variable} ${poppins.variable} ${greatVibes.variable} antialiased font-sans min-h-screen flex flex-col`}
+        suppressHydrationWarning
+      >
         <Providers>
           <PrivateAccessBanner />
           <Navbar />
