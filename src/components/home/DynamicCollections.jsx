@@ -5,21 +5,21 @@ import axiosInstance from "../../services/axiosInstance";
 import ProductSection from "./ProductSection";
 import ProductGridSkeleton from "../ui/skeleton/ProductGridSkeleton";
 
-export default function DynamicCollections() {
+const DEFAULT_ORDER = ["the-editions", "mens-luxury-watches", "luxury-bags"];
+
+export default function DynamicCollections({ collectionOrder }) {
+  const preferredOrder = collectionOrder?.length ? collectionOrder : DEFAULT_ORDER;
+
   const { data: categories, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await axiosInstance.get("/categories");
       const activeCats = res.data?.filter(c => c.isActive) || [];
-      // Enforce strict order: Editions -> Watches -> Bags
       return activeCats.sort((a, b) => {
-        const order = {
-          "the-editions": 1,
-          "mens-luxury-watches": 2,
-          "luxury-bags": 3
-        };
-        const orderA = order[a.slug] || 99;
-        const orderB = order[b.slug] || 99;
+        const indexA = preferredOrder.indexOf(a.slug);
+        const indexB = preferredOrder.indexOf(b.slug);
+        const orderA = indexA === -1 ? 99 : indexA;
+        const orderB = indexB === -1 ? 99 : indexB;
         return orderA - orderB;
       });
     },

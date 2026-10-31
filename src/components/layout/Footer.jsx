@@ -2,8 +2,28 @@
 
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "../../services/axiosInstance";
+import { FALLBACK_SETTINGS } from "../../lib/cms";
 
 export default function Footer() {
+  const { data: settings } = useQuery({
+    queryKey: ["siteSettings"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/site-settings");
+      return res.data;
+    },
+    placeholderData: FALLBACK_SETTINGS,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const phone = settings?.phone || "+91 99206 88099";
+  const email = settings?.email || "petalsbysmira@gmail.com";
+  const address = settings?.address || "Mumbai, Maharashtra, India";
+  const instagramUrl = settings?.instagramUrl || "https://instagram.com";
+  const facebookUrl = settings?.facebookUrl || "https://facebook.com";
+  const twitterUrl = settings?.twitterUrl || "";
+
   return (
     <footer className="bg-[var(--color-black)] text-[var(--color-offwhite)] pt-16 sm:pt-24 pb-10 border-t border-[var(--color-gold)]/20 font-sans relative overflow-hidden">
       {/* Background glow effects */}
@@ -14,12 +34,12 @@ export default function Footer() {
         {/* Main Footer Links */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-x-6 sm:gap-x-8 gap-y-10 lg:gap-8 mb-16 sm:mb-20">
           
-          {/* Brand Column - Left aligned across all breakpoints */}
+          {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-4 space-y-4 sm:space-y-6 flex flex-col items-start text-left">
             <Link href="/" prefetch={false} className="inline-block group">
               <img 
-                src="/logo.jpg" 
-                alt="Petals by Smira" 
+                src={settings?.logoUrl || "/logo.jpg"} 
+                alt={settings?.brandName || "Petals by Smira"} 
                 className="h-16 sm:h-20 w-auto object-contain transition-transform duration-700 group-hover:scale-105 -translate-x-[19%] origin-left"
                 style={{ mixBlendMode: 'screen', filter: 'contrast(1.5)' }}
               />
@@ -28,7 +48,7 @@ export default function Footer() {
               &ldquo;A statement, not just a jewel.&rdquo;
             </p>
             <p className="text-xs opacity-50 max-w-sm font-light leading-relaxed text-left">
-              Crafting timeless luxury and exquisite diamond creations for the modern connoisseur.
+              Crafting timeless luxury and exquisite creations for the modern connoisseur.
             </p>
           </div>
 
@@ -65,47 +85,55 @@ export default function Footer() {
             <ul className="space-y-4 text-xs opacity-70 tracking-wider font-light">
               <li className="flex items-start gap-3 group">
                 <MapPin className="h-4 w-4 text-[var(--color-gold)] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <span className="leading-relaxed">Mumbai, Maharashtra, India</span>
+                <span className="leading-relaxed">{address}</span>
               </li>
               <li className="flex items-start gap-3 group">
                 <Phone className="h-4 w-4 text-[var(--color-gold)] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <span className="leading-relaxed">
-                  {process.env.NEXT_PUBLIC_CONCIERGE_PHONE || (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ? `+${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}` : "+91 99206 88099")}{" "}
+                  {phone}{" "}
                   <br />
                   <span className="text-[10px] opacity-75 mt-0.5 block">(Private Consultation)</span>
                 </span>
               </li>
               <li className="flex items-center gap-3 group">
                 <Mail className="h-4 w-4 text-[var(--color-gold)] flex-shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="mailto:petalsbysmira@gmail.com" className="hover:text-[var(--color-gold)] transition-colors break-all">
-                  petalsbysmira@gmail.com
+                <a href={`mailto:${email}`} className="hover:text-[var(--color-gold)] transition-colors break-all">
+                  {email}
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar - Left aligned on mobile, space-between on desktop */}
+        {/* Bottom Bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <p className="text-[10px] opacity-50 uppercase tracking-[0.2em] text-left order-2 md:order-1">
-            © {new Date().getFullYear()} Petals by Smira. All Rights Reserved.
+            © {new Date().getFullYear()} {settings?.brandName || "Petals by Smira"}. All Rights Reserved.
           </p>
           
           <div className="flex items-center space-x-4 order-1 md:order-2">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Instagram">
-              IG
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Facebook">
-              FB
-            </a>
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Twitter">
-              X
-            </a>
-          </div>
-
-          <div className="flex space-x-6 text-[10px] opacity-50 uppercase tracking-[0.1em] text-left md:text-right order-3 md:order-3">
-            <Link href="/privacy" prefetch={false} className="hover:text-[var(--color-gold)] transition-colors">Privacy Policy</Link>
-            <Link href="/terms" prefetch={false} className="hover:text-[var(--color-gold)] transition-colors">Terms of Service</Link>
+            {instagramUrl && (
+              <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Instagram">
+                IG
+              </a>
+            )}
+            {facebookUrl && (
+              <a href={facebookUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Facebook">
+                FB
+              </a>
+            )}
+            {twitterUrl && (
+              <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] hover:text-black transition-all font-sans text-[10px] uppercase tracking-widest" aria-label="Twitter">
+                X
+              </a>
+            )}
+            <Link href="/privacy" prefetch={false} className="text-[10px] uppercase tracking-[0.2em] opacity-50 hover:opacity-100 hover:text-[var(--color-gold)] transition-colors">
+              Privacy
+            </Link>
+            <span className="text-[10px] opacity-30">·</span>
+            <Link href="/terms" prefetch={false} className="text-[10px] uppercase tracking-[0.2em] opacity-50 hover:opacity-100 hover:text-[var(--color-gold)] transition-colors">
+              Terms
+            </Link>
           </div>
         </div>
       </div>

@@ -2,13 +2,25 @@
 
 import Link from "next/link";
 
-export default function HeroSection() {
+export default function HeroSection({ settings }) {
+  const heroImage = settings?.heroImageUrl || "/image.jpg";
+  const line1 = settings?.heroLine1 || "Not everything";
+  const line2 = settings?.heroLine2 || "extraordinary comes";
+  const line3 = settings?.heroLine3 || "with a price tag.";
+  const sub1 = settings?.heroSubLine1 || "Luxury Editions from ₹4,999 to ₹1,00,000";
+  const sub2 = settings?.heroSubLine2 || "Access is limited.";
+  const cta1Label = settings?.heroCta1Label || "EXPLORE THE EDITIONS";
+  const cta1Href = settings?.heroCta1Href || "/editions";
+  const cta2Label = settings?.heroCta2Label || "REQUEST ACCESS";
+  const cta2Href = settings?.heroCta2Href || "/request-access";
+  const heroQuote = settings?.heroQuote || "A statement,\nnot just a jewel.";
+
   return (
     <section className="relative w-full min-h-[100svh] md:h-screen md:min-h-[700px] md:max-h-[1000px] bg-black flex items-center overflow-hidden border-b border-[#222]">
       {/* Background Image */}
       <div 
         className="absolute -inset-2 z-0 bg-cover bg-no-repeat bg-[position:90%_20%] sm:bg-[position:75%_center] md:bg-[position:right_center]"
-        style={{ backgroundImage: "url('/image.jpg')" }}
+        style={{ backgroundImage: `url('${heroImage}')` }}
       ></div>
       
       {/* Dark Gradient overlays for seamless blending */}
@@ -35,13 +47,13 @@ export default function HeroSection() {
           <div className="w-full lg:w-[55%] text-left lg:-translate-x-4">
             <h1 className="flex flex-col text-[var(--color-offwhite)] leading-[1.1] mb-6 font-serif">
               <span className="hero-fade-1 text-2xl sm:text-4xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-1">
-                Not everything
+                {line1}
               </span>
               <span className="hero-fade-2 text-2xl sm:text-4xl md:text-[68px] lg:text-[76px] font-light tracking-wide mb-2">
-                extraordinary comes
+                {line2}
               </span>
               <span className="hero-fade-3 text-4xl sm:text-6xl md:text-[85px] lg:text-[100px] text-[var(--color-gold)] font-medium mt-1 tracking-normal font-great-vibes">
-                with a price tag.
+                {line3}
               </span>
             </h1>
 
@@ -61,40 +73,42 @@ export default function HeroSection() {
             <div className="hero-fade-cta mt-4 flex flex-col items-start md:block w-full">
               <div className="mb-8 md:mb-10 text-[#A69B82] opacity-90 tracking-wider space-y-2 md:space-y-3 font-serif text-center md:text-left w-full md:w-auto">
                 <p className="text-sm md:text-[17px]">
-                  Luxury Editions from ₹4,999 to ₹1,00,000
+                  {sub1}
                 </p>
                 <p className="text-sm md:text-[17px]">
-                  Access is limited.
+                  {sub2}
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto justify-center md:justify-start">
                 <Link 
-                  href="/editions" 
+                  href={cta1Href} 
                   className="flex items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-4 md:py-3 text-[11px] md:text-[10px] font-medium tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-all duration-300 w-full sm:w-auto"
                 >
-                  EXPLORE THE EDITIONS <span className="ml-3 opacity-70">&gt;</span>
+                  {cta1Label} <span className="ml-3 opacity-70">&gt;</span>
                 </Link>
                 <Link 
-                  href="/request-access" 
+                  href={cta2Href} 
                   className="flex items-center justify-center border border-[var(--color-gold)]/50 text-[var(--color-gold)] px-8 py-4 md:py-3 text-[11px] md:text-[10px] font-medium tracking-[0.25em] hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300 w-full sm:w-auto"
                 >
-                  REQUEST ACCESS
+                  {cta2Label}
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Right: Floating Quote */}
-          <div className="hero-fade-quote hidden lg:block absolute right-[4%] top-[38%] max-w-[280px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
-            <div className="relative text-right pr-4">
-              <span className="absolute -top-4 -left-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 font-serif">“</span>
-              <p className="text-[26px] italic text-[var(--color-offwhite)] opacity-100 leading-[1.3] font-serif font-medium">
-                A statement,<br/>not just a jewel.
-              </p>
-              <span className="absolute -bottom-6 -right-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 font-serif">”</span>
+          {heroQuote && (
+            <div className="hero-fade-quote hidden lg:block absolute right-[4%] top-[38%] max-w-[280px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+              <div className="relative text-right pr-4">
+                <span className="absolute -top-4 -left-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 font-serif">“</span>
+                <p className="text-[26px] italic text-[var(--color-offwhite)] opacity-100 leading-[1.3] font-serif font-medium whitespace-pre-line">
+                  {heroQuote}
+                </p>
+                <span className="absolute -bottom-6 -right-6 text-[var(--color-gold)] text-[60px] leading-none opacity-90 font-serif">”</span>
+              </div>
             </div>
-          </div>
+          )}
 
         </div>
       </div>
