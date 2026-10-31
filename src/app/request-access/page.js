@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import axiosInstance from "../../services/axiosInstance";
+import { cdnImg } from "../../utils/utils";
 
 function RequestAccessForm() {
   const searchParams = useSearchParams();
@@ -115,8 +116,10 @@ function RequestAccessForm() {
             <div className="flex flex-col gap-4">
               <div className="aspect-square relative w-full bg-black">
                 <img 
-                  src={productData.images?.[0] || "/image.jpg"} 
+                  src={cdnImg(productData.images?.[0], 400) || "/image.jpg"} 
                   alt={productData.name} 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>

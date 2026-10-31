@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500"],
   variable: "--font-poppins",
   display: "swap",
   preload: true,
@@ -66,6 +66,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+      </head>
       <body
         className={`${playfair.variable} ${poppins.variable} ${greatVibes.variable} antialiased font-sans min-h-screen flex flex-col`}
         suppressHydrationWarning

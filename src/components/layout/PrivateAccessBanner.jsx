@@ -55,17 +55,20 @@ export default function PrivateAccessBanner() {
   if (!mounted || !hasAccess || dismissed) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] max-w-[92vw] bg-[#0d0d0d]/95 backdrop-blur border border-[var(--color-gold)]/50 rounded-full px-4 py-2 text-[10px] sm:text-xs tracking-[0.18em] uppercase font-sans flex items-center gap-2 shadow-[0_8px_30px_rgba(0,0,0,0.6)] text-[var(--color-gold)]">
-      <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-      <span>
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] max-w-[92vw] bg-[#0d0d0d]/95 backdrop-blur border border-[var(--color-gold)]/50 rounded-full px-3 sm:px-4 py-2 text-[10px] sm:text-xs tracking-[0.15em] uppercase font-sans flex items-center gap-2 shadow-[0_8px_30px_rgba(0,0,0,0.6)] text-[var(--color-gold)] whitespace-nowrap">
+      <Sparkles className="w-3.5 h-3.5 animate-pulse shrink-0" />
+      <span className="shrink-0">
         Private Access Active
         {remainingText && (
-          <span className="opacity-75 font-mono ml-2 lowercase">({remainingText})</span>
+          <>
+            <span className="hidden sm:inline opacity-75 font-mono ml-2 lowercase">({remainingText})</span>
+            <span className="sm:hidden opacity-75 font-mono ml-1 lowercase">· {remainingText}</span>
+          </>
         )}
       </span>
       <button
         onClick={() => setDismissed(true)}
-        className="ml-2 p-1 text-white/50 hover:text-white transition-colors"
+        className="ml-1 sm:ml-2 p-1 text-white/50 hover:text-white transition-colors shrink-0"
         title="Dismiss"
       >
         <X className="w-3 h-3" />

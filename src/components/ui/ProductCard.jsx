@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { cdnImg } from "../../utils/utils";
 
 export default function ProductCard({ product }) {
   // Use product images or placeholder
-  const imageUrl = (product?.images && product.images.length > 0) 
+  const rawImageUrl = (product?.images && product.images.length > 0) 
     ? product.images[0] 
     : "https://images.unsplash.com/photo-1599643478514-4a820cbf311e?q=80&w=800&auto=format&fit=crop";
+  const imageUrl = cdnImg(rawImageUrl, 600);
 
   const hasPrivatePrice = product?.price !== null && product?.price !== undefined;
   const isGated = Boolean(product?.requestAccessEnabled);
@@ -20,6 +22,8 @@ export default function ProductCard({ product }) {
           <img
             src={imageUrl}
             alt={product?.name || "Luxury Item"}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] opacity-90 group-hover:opacity-100"
           />
         </Link>
@@ -61,19 +65,16 @@ export default function ProductCard({ product }) {
             </div>
           )}
         </div>
-        
-        {/* CTA Button with mobile-safe padding & typography */}
-        <Link 
-          href={hasPrivatePrice ? `/editions/${product?.slug || product?._id}` : `/request-access?product=${product?.slug || product?._id}`}
-          className="mt-auto inline-flex items-center justify-center border border-[#333] bg-[#111] text-[var(--color-gold)] px-2 sm:px-3 py-2 text-[7px] sm:text-[9px] font-sans uppercase tracking-[0.12em] sm:tracking-[0.2em] hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[130px]"
+
+        {/* Action Link */}
+        <Link
+          href={`/editions/${product?.slug || product?._id}`}
+          className="inline-block border border-[var(--color-gold)] border-opacity-50 text-[var(--color-gold)] text-[8px] sm:text-[9px] tracking-[0.2em] font-sans uppercase px-3 sm:px-4 py-1.5 hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300 w-full"
         >
-          {hasPrivatePrice ? (
-            <span>VIEW DETAILS &nbsp;&gt;</span>
-          ) : (
-            <span>ACCESS LIMITED &nbsp;&gt;</span>
-          )}
+          {isGated && !hasPrivatePrice ? "Unlock Pricing" : "View Piece"}
         </Link>
       </div>
+
     </div>
   );
 }

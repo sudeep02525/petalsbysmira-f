@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ProductDetailsSkeleton from "../../../components/ui/skeleton/ProductDetailsSkeleton";
+import { cdnImg } from "../../../utils/utils";
 
 import axiosInstance from "../../../services/axiosInstance";
 
@@ -61,8 +62,9 @@ export default function ProductDetailPage() {
           <div className="w-full md:w-1/2 flex flex-col gap-6">
             <div className="aspect-square bg-[#111] border border-[#222] relative overflow-hidden">
               <img 
-                src={product.images?.[selectedImage] || product.images?.[0] || "/image.jpg"} 
+                src={cdnImg(product.images?.[selectedImage] || product.images?.[0] || "/image.jpg", 1200)} 
                 alt={product.name} 
+                decoding="async"
                 className="w-full h-full object-cover transition-all duration-300"
               />
               {product.limitedEdition && (
@@ -82,7 +84,7 @@ export default function ProductDetailPage() {
                     onClick={() => setSelectedImage(idx)}
                     className={`aspect-square bg-[#111] border cursor-pointer transition-all ${selectedImage === idx ? 'border-[var(--color-gold)]' : 'border-[#222] hover:border-[#444]'}`}
                   >
-                    <img src={img} alt={`${product.name} thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={cdnImg(img, 300)} alt={`${product.name} thumbnail ${idx + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
