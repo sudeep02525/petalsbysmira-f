@@ -55,16 +55,18 @@ export default function PrivateAccessBanner() {
   if (!mounted || !hasAccess || dismissed) return null;
 
   return (
-    <div className="relative z-50 bg-[#0d0d0d] border-b border-[var(--color-gold)]/40 text-[var(--color-gold)] py-1.5 px-4 text-center text-[10px] sm:text-xs tracking-[0.2em] uppercase font-sans flex items-center justify-center gap-2">
-      <Sparkles className="w-3.5 h-3.5 text-[var(--color-gold)] animate-pulse" />
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] max-w-[92vw] bg-[#0d0d0d]/95 backdrop-blur border border-[var(--color-gold)]/50 rounded-full px-4 py-2 text-[10px] sm:text-xs tracking-[0.18em] uppercase font-sans flex items-center gap-2 shadow-[0_8px_30px_rgba(0,0,0,0.6)] text-[var(--color-gold)]">
+      <Sparkles className="w-3.5 h-3.5 animate-pulse" />
       <span>
-        Private Access Active &bull; Exclusive Pricing Unlocked
-        {remainingText && <span className="opacity-75 font-mono ml-2 lowercase">({remainingText})</span>}
+        Private Access Active
+        {remainingText && (
+          <span className="opacity-75 font-mono ml-2 lowercase">({remainingText})</span>
+        )}
       </span>
       <button
         onClick={() => setDismissed(true)}
-        className="absolute right-3 p-1 text-white/50 hover:text-white transition-colors"
-        title="Dismiss banner"
+        className="ml-2 p-1 text-white/50 hover:text-white transition-colors"
+        title="Dismiss"
       >
         <X className="w-3 h-3" />
       </button>
