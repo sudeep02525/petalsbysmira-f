@@ -3,6 +3,7 @@
 export const metadata = {
   title: "Experience | Petals by Smira",
   description: "Luxury, curated differently. Discover the Petals by Smira private access experience.",
+  alternates: { canonical: "/experience" },
 };
 
 const ExperienceStep = ({ number, title, description, isLast }) => (

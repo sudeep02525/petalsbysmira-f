@@ -28,6 +28,16 @@ const greatVibes = Great_Vibes({
   preload: false,
 });
 
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Petals by Smira",
+  url: "https://www.petalsbysmira.in",
+  logo: "https://www.petalsbysmira.in/logo.jpg",
+  address: { "@type": "PostalAddress", addressLocality: "Mumbai", addressRegion: "Maharashtra", addressCountry: "IN" },
+  contactPoint: { "@type": "ContactPoint", telephone: "+91-99206-88099", contactType: "customer service", email: "petalsbysmira@gmail.com", areaServed: "IN" },
+};
+
 export const metadata = {
   metadataBase: new URL("https://www.petalsbysmira.in"),
   title: {
@@ -60,6 +70,7 @@ export default function RootLayout({ children }) {
         className={`${playfair.variable} ${poppins.variable} ${greatVibes.variable} antialiased font-sans min-h-screen flex flex-col`}
         suppressHydrationWarning
       >
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
         <Providers>
           <PrivateAccessBanner />
           <Navbar />

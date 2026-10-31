@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Terms of Service | Petals by Smira",
   description: "Terms governing private access, commissions, acquisitions, and certificates of authenticity at Petals by Smira.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsOfServicePage() {

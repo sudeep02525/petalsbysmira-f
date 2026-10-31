@@ -4,6 +4,7 @@ import { HelpCircle, Sparkles, KeyRound, Truck, ShieldCheck, Mail } from "lucide
 export const metadata = {
   title: "Frequently Asked Questions | Petals by Smira",
   description: "Find answers regarding private access, bespoke gifting, shipping, and authentic craftsmanship at Petals by Smira.",
+  alternates: { canonical: "/faq" },
 };
 
 export default function FAQPage() {
@@ -27,7 +28,7 @@ export default function FAQPage() {
       ],
     },
     {
-      category: "Bespoke & Corporate Gifting",
+      category: "Bespoke Commissions",
       icon: <Sparkles className="w-5 h-5 text-[var(--color-gold)]" />,
       questions: [
         {

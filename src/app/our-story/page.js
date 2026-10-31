@@ -3,6 +3,7 @@
 export const metadata = {
   title: "Our Story | Petals by Smira",
   description: "The heritage, craftsmanship, and philosophy behind Petals by Smira's exclusive luxury collections.",
+  alternates: { canonical: "/our-story" },
 };
 
 export default function OurStoryPage() {

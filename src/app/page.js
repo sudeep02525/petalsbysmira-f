@@ -5,6 +5,7 @@ import FeatureStrip from "../components/home/FeatureStrip";
 export const metadata = {
   title: "Petals by Smira | Exclusive Luxury Showcase",
   description: "Exceptional pieces. Reserved for those who know. Private access to limited edition jewelry, watches, and bags.",
+  alternates: { canonical: "/" },
 };
 
 export default function HomePage() {

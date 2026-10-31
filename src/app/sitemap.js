@@ -5,7 +5,6 @@ export default async function sitemap() {
     "/editions",
     "/our-story",
     "/experience",
-    "/corporate-gifting",
     "/contact",
     "/faq",
     "/privacy",

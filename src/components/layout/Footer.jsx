@@ -52,7 +52,6 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3.5 text-xs tracking-[0.1em] uppercase opacity-70">
               <li><Link href="/request-access" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Private Access</Link></li>
-              <li><Link href="/corporate-gifting" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Bespoke Services</Link></li>
               <li><Link href="/contact" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">Care Guide</Link></li>
               <li><Link href="/faq" prefetch={false} className="hover:text-[var(--color-gold)] hover:translate-x-1 inline-block transition-all duration-300">FAQ</Link></li>
             </ul>

@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Sparkles, MessageCircle, Clock, ShieldCheck } from
 export const metadata = {
   title: "Concierge & Care Guide | Petals by Smira",
   description: "Connect with the Petals by Smira private concierge for bespoke commissions, private viewings, and jewellery care guidance.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -78,7 +79,7 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5" />
               </div>
               <h3 className="font-serif text-lg text-white mb-2">Written Correspondence</h3>
-              <p className="text-xs text-[#888] mb-4">Inquiries regarding corporate gifting and commissions</p>
+              <p className="text-xs text-[#888] mb-4">Inquiries regarding bespoke commissions and private viewings</p>
               <a
                 href="mailto:petalsbysmira@gmail.com"
                 className="text-sm font-medium text-[var(--color-gold)] hover:underline"

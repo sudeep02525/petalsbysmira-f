@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Privacy Policy | Petals by Smira",
   description: "Learn how Petals by Smira protects your personal data and confidentiality.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPolicyPage() {
