@@ -23,6 +23,12 @@ export default function Navbar() {
   }, []);
 
   useGSAP(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      // Mobile: skip height animation to prevent scroll jumps, only fade background
+      gsap.to(bgRef.current, { opacity: isScrolled ? 1 : 0, duration: 0.3 });
+      return;
+    }
+
     if (isScrolled) {
       // Smooth fade-in effect for the background
       gsap.to(bgRef.current, {

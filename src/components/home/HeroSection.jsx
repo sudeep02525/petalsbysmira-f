@@ -10,7 +10,7 @@ const itemVariants = {
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full min-h-[100dvh] md:h-screen md:min-h-[700px] md:max-h-[1000px] bg-black flex items-center overflow-hidden border-b border-[#222]">
+    <section className="relative w-full min-h-[100svh] md:h-screen md:min-h-[700px] md:max-h-[1000px] bg-black flex items-center overflow-hidden border-b border-[#222]">
       {/* Background Image */}
       <div 
         className="absolute -inset-2 z-0 bg-cover bg-no-repeat bg-[position:90%_20%] sm:bg-[position:75%_center] md:bg-[position:right_center]"
