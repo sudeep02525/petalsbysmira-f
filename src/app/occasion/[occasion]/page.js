@@ -7,20 +7,6 @@ import ProductCardSkeleton from "../../../components/ui/skeleton/ProductCardSkel
 import axiosInstance from "../../../services/axiosInstance";
 import ProductCard from "../../../components/ui/ProductCard";
 import { Button } from "../../../components/ui/Button";
-import { motion } from "framer-motion";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-};
 
 export default function OccasionPage() {
   const params = useParams();
@@ -72,18 +58,13 @@ export default function OccasionPage() {
             </Link>
           </div>
         ) : (
-          <motion.div 
-            className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {products.map((product) => (
-              <motion.div key={product._id} variants={itemVariants}>
+              <div key={product._id}>
                 <ProductCard product={product} />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
     </div>

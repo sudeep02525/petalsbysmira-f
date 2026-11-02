@@ -4,20 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../services/axiosInstance";
 import ProductCard from "../ui/ProductCard";
 import ProductGridSkeleton from "../ui/skeleton/ProductGridSkeleton";
-import { motion } from "framer-motion";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
 
 const fetchProducts = async (type, occasion, categoryId) => {
   const params = {};
@@ -45,13 +31,7 @@ export default function ProductSection({ title, subtitle, type, occasion, catego
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Luxury Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center justify-center text-center mb-12"
-        >
+        <div className="flex flex-col items-center justify-center text-center mb-12">
           <div className="flex items-center justify-center gap-4 w-full mb-3">
             <div className="h-px bg-gradient-to-r from-transparent to-[var(--color-gold)] flex-1 max-w-[100px] opacity-50"></div>
             <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-gold)] tracking-widest uppercase px-4">
@@ -65,7 +45,7 @@ export default function ProductSection({ title, subtitle, type, occasion, catego
               {subtitle}
             </p>
           )}
-        </motion.div>
+        </div>
 
         {isLoading ? (
           <ProductGridSkeleton count={5} />
@@ -74,24 +54,19 @@ export default function ProductSection({ title, subtitle, type, occasion, catego
             Failed to load collection.
           </div>
         ) : (
-          <motion.div 
+          <div 
             className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 pb-8 md:pb-0 scrollbar-hide"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
             style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }} // Hide scrollbar for standard browsers
           >
             {products?.slice(0, 5).map((product) => (
-              <motion.div 
+              <div 
                 key={product._id} 
-                variants={itemVariants}
                 className="w-[85vw] md:w-auto min-w-[85vw] sm:min-w-[45vw] md:min-w-0 snap-center shrink-0"
               >
                 <ProductCard product={product} />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
     </section>
