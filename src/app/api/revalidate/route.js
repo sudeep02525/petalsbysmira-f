@@ -6,9 +6,13 @@ export async function GET(request) {
   const secret = searchParams.get("secret");
   const path = searchParams.get("path");
 
-  // Validate secret if configured
-  if (process.env.REVALIDATE_SECRET && secret !== process.env.REVALIDATE_SECRET) {
-    return NextResponse.json({ message: "Invalid secret token" }, { status: 401 });
+  // Enforce secret validation to protect on-demand revalidation
+  const expectedSecret = process.env.REVALIDATE_SECRET;
+  if (!expectedSecret || secret !== expectedSecret) {
+    return NextResponse.json(
+      { message: "Invalid or missing revalidation secret token" },
+      { status: 401 }
+    );
   }
 
   if (!path) {

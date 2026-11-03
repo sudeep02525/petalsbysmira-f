@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ProductDetailsSkeleton from "../../../components/ui/skeleton/ProductDetailsSkeleton";
 import { cdnImg } from "../../../utils/utils";
+import { FALLBACK_SETTINGS } from "../../../lib/cms";
 
 import axiosInstance from "../../../services/axiosInstance";
 
@@ -14,6 +15,19 @@ export default function ProductDetailPage() {
   const params = useParams();
   const slug = params?.slug;
   const [selectedImage, setSelectedImage] = useState(0);
+
+  const { data: settings } = useQuery({
+    queryKey: ["siteSettings"],
+    queryFn: async () => {
+      try {
+        const { data } = await axiosInstance.get("/site-settings");
+        return data;
+      } catch {
+        return FALLBACK_SETTINGS;
+      }
+    },
+    placeholderData: FALLBACK_SETTINGS,
+  });
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", slug],
@@ -123,7 +137,9 @@ export default function ProductDetailPage() {
             {product.price ? (
               <div className="mt-4 flex flex-col sm:flex-row gap-6 items-center">
                 <div className="flex flex-col">
-                  <span className="text-[var(--color-gold)] text-[10px] tracking-widest uppercase mb-1">Exclusive Price</span>
+                  <span className="text-[var(--color-gold)] text-[10px] tracking-widest uppercase mb-1">
+                    {settings?.priceLabel || "Exclusive Price"}
+                  </span>
                   <div className="flex items-baseline gap-3">
                     <span className="text-2xl md:text-3xl text-white font-serif">
                       ₹{product.discountPrice ? product.discountPrice.toLocaleString('en-IN') : product.price.toLocaleString('en-IN')}
@@ -139,12 +155,14 @@ export default function ProductDetailPage() {
                   href={`/request-access?product=${product.slug || product._id}`}
                   className="inline-flex w-full sm:w-auto items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-4 text-xs font-medium uppercase tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-colors duration-300"
                 >
-                  Enquire to Purchase
+                  {settings?.productCtaLabel || "Enquire to Purchase"}
                 </a>
               </div>
             ) : (
               <div className="mt-4 flex flex-col gap-4">
-                <span className="text-[var(--color-gold)] text-[10px] tracking-widest uppercase">Price on Request</span>
+                <span className="text-[var(--color-gold)] text-[10px] tracking-widest uppercase">
+                  {settings?.priceOnRequestLabel || "Price on Request"}
+                </span>
                 <a 
                   href={`/request-access?product=${product.slug || product._id}`}
                   className="inline-flex w-full md:w-auto items-center justify-center border border-[var(--color-gold)] bg-[var(--color-gold)] text-black px-8 py-5 text-xs font-medium uppercase tracking-[0.25em] hover:bg-transparent hover:text-[var(--color-gold)] transition-colors duration-300"
@@ -156,9 +174,16 @@ export default function ProductDetailPage() {
             
             {/* Additional Brand Text */}
             <div className="mt-12 pt-8 border-t border-[#222]/50 text-xs text-[#666] uppercase tracking-widest space-y-4">
-              <p>Personal Consultation Included</p>
-              <p>Complimentary Secure Delivery</p>
-              <p>Certificate of Authenticity</p>
+              {(settings?.productTrustLines && settings.productTrustLines.filter(Boolean).length > 0
+                ? settings.productTrustLines.filter(Boolean)
+                : [
+                    "Personal Consultation Included",
+                    "Complimentary Secure Delivery",
+                    "Certificate of Authenticity",
+                  ]
+              ).map((line, idx) => (
+                <p key={idx}>{line}</p>
+              ))}
             </div>
             
           </div>
