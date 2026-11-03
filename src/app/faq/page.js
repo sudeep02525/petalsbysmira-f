@@ -6,7 +6,7 @@ export const revalidate = 300;
 
 export async function generateMetadata() {
   return {
-    title: "Frequently Asked Questions | Petals by Smira",
+    title: "Frequently Asked Questions",
     description:
       "Find answers regarding private access, bespoke gifting, shipping, and authentic craftsmanship at Petals by Smira.",
     alternates: { canonical: "/faq" },

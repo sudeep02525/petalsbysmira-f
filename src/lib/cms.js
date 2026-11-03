@@ -85,7 +85,7 @@ export const FALLBACK_PAGES = {
       },
     ],
     seo: {
-      title: "Our Story | Petals by Smira",
+      title: "Our Story",
       description: "The heritage, craftsmanship, and philosophy behind Petals by Smira's exclusive luxury collections.",
     },
   },
@@ -133,7 +133,7 @@ export const FALLBACK_PAGES = {
       },
     ],
     seo: {
-      title: "Experience | Petals by Smira",
+      title: "The Experience",
       description: "Luxury, curated differently. Discover the Petals by Smira private access experience.",
     },
   },
@@ -176,7 +176,7 @@ export const FALLBACK_PAGES = {
       },
     ],
     seo: {
-      title: "Privacy Policy | Petals by Smira",
+      title: "Privacy Policy",
       description: "Learn how Petals by Smira protects your personal data and confidentiality.",
     },
   },
@@ -219,7 +219,7 @@ export const FALLBACK_PAGES = {
       },
     ],
     seo: {
-      title: "Terms of Service | Petals by Smira",
+      title: "Terms of Service",
       description: "Terms governing private access, commissions, acquisitions, and certificates of authenticity at Petals by Smira.",
     },
   },

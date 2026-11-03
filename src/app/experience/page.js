@@ -5,8 +5,10 @@ export const revalidate = 300;
 
 export async function generateMetadata() {
   const page = await getPage("experience");
+  const rawTitle = page?.seo?.title || page?.title || "The Experience";
+  const cleanTitle = rawTitle.replace(/\s*\|\s*Petals by Smira.*$/i, "").trim() || "The Experience";
   return {
-    title: page?.seo?.title || page?.title || "Experience | Petals by Smira",
+    title: cleanTitle,
     description:
       page?.seo?.description ||
       page?.subtitle ||

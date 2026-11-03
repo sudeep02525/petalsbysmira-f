@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, Phone, MapPin, Sparkles, MessageCircle, Clock, ShieldCheck } from "lucide-react";
 
 export const metadata = {
-  title: "Concierge & Care Guide | Petals by Smira",
+  title: "Concierge & Care Guide",
   description: "Connect with the Petals by Smira private concierge for bespoke commissions, private viewings, and jewellery care guidance.",
   alternates: { canonical: "/contact" },
 };
